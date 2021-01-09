@@ -32,6 +32,7 @@ class _HomeBookMarkState extends State<HomeBookMark> {
         SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.white));
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(70.0),
         child: AppBar(

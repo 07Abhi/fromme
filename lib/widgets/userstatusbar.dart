@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:fromme/models/statusmodel.dart';
 
-Widget userCircles() {
+Widget userCircles(StatusModel data) {
   return Stack(
     alignment: Alignment.center,
     children: [
-      CircleAvatar(
-        radius: 45.0,
-        backgroundImage: AssetImage('assets/userlogo.png'),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: CircleAvatar(
+          radius: 45.0,
+          backgroundImage: NetworkImage(data.photoUrl),
+        ),
       ),
       Positioned(
         right: 5.0,
@@ -15,7 +19,7 @@ Widget userCircles() {
           radius: 12.0,
           child: CircleAvatar(
             radius: 10.0,
-            backgroundColor: Colors.green,
+            backgroundColor: data.isOnline ? Colors.green : Colors.blue,
           ),
         ),
       )
@@ -23,35 +27,16 @@ Widget userCircles() {
   );
 }
 
-Widget userStatusBar(BuildContext context) {
+Widget userStatusBar(BuildContext context, List<StatusModel> userData) {
   return Container(
     height: 100.0,
     width: MediaQuery.of(context).size.width,
     color: Colors.white,
-    child: ListView(
+    child: ListView.builder(
+      itemBuilder: (context, index) => userCircles(userData[index]),
+      itemCount: userData.length,
+      shrinkWrap: true,
       scrollDirection: Axis.horizontal,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: userCircles(),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: userCircles(),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: userCircles(),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: userCircles(),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: userCircles(),
-        ),
-      ],
     ),
   );
 }

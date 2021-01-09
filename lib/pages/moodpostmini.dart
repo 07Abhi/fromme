@@ -25,6 +25,7 @@ class _MoodPostMiniState extends State<MoodPostMini> {
   DocumentSnapshot userData;
   File pickFile;
   String imageUrl;
+  bool isImage = false;
 
   Future<DocumentSnapshot> fetchData() async {
     userData = await _firestore
@@ -47,15 +48,17 @@ class _MoodPostMiniState extends State<MoodPostMini> {
                   await ImagePicker().getImage(source: ImageSource.gallery);
               image = File(pickImage.path);
               Navigator.of(context).pop();
-              final reference = _storage.ref().child('moodPostPhotos/');
+              final reference = _storage
+                  .ref()
+                  .child('${_firebaseAuth.currentUser.uid}mood post/');
               final uploadTask = reference.putFile(image);
-              uploadTask.whenComplete(() {
-                setState(() async {
-                  print("photo is done");
-                  pickFile = image;
-                  imageUrl = await reference.getDownloadURL();
-                  print(imageUrl);
-                });
+              uploadTask.whenComplete(() async {
+                imageUrl = await reference.getDownloadURL();
+                print(imageUrl);
+              });
+              setState(() {
+                isImage = true;
+                pickFile = image;
               });
               Toast.show(
                 "Image Uploaded",
@@ -78,14 +81,17 @@ class _MoodPostMiniState extends State<MoodPostMini> {
                   await ImagePicker().getImage(source: ImageSource.camera);
               image = File(pickImage.path);
               Navigator.of(context).pop();
-              final reference = _storage.ref().child('moodPostPhotos/');
+              final reference = _storage
+                  .ref()
+                  .child('${_firebaseAuth.currentUser.uid}mood post/');
               final uploadTask = reference.putFile(image);
-              uploadTask.whenComplete(() {
-                setState(() async {
-                  pickFile = image;
-                  imageUrl = await reference.getDownloadURL();
-                  print(imageUrl);
-                });
+              uploadTask.whenComplete(() async {
+                imageUrl = await reference.getDownloadURL();
+                print(imageUrl);
+              });
+              setState(() {
+                isImage = true;
+                pickFile = image;
               });
               Toast.show(
                 "Image Uploaded",
@@ -111,6 +117,7 @@ class _MoodPostMiniState extends State<MoodPostMini> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.white,
       body: Consumer<MoodManager>(
         builder: (context, moodTask, child) => FutureBuilder(
@@ -199,6 +206,24 @@ class _MoodPostMiniState extends State<MoodPostMini> {
                   Divider(
                     thickness: 2.0,
                     color: Colors.grey.shade200,
+                  ),
+                  Visibility(
+                    visible: isImage,
+                    child: Align(
+                      child: Container(
+                        height: 100.0,
+                        width: 100.0,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          image: DecorationImage(
+                            image: isImage
+                                ? FileImage(pickFile)
+                                : AssetImage('assets/userlogo.png'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -350,19 +375,34 @@ class _MoodPostMiniState extends State<MoodPostMini> {
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                             onPressed: () {
-                              try {
-                                _firestore
-                                    .collection('usermoodpost')
-                                    .doc(_firebaseAuth.currentUser.uid)
-                                    .collection('moodposts')
-                                    .add({
-                                  "postMessage": _postMessageController.text,
-                                  "emotion": moodTask.getMood(),
-                                  "postImageUrl": imageUrl,
-                                });
-                                _postMessageController.clear();
+                              if (_postMessageController.text.isNotEmpty) {
+                                try {
+                                  _firestore
+                                      .collection('usermoodpost')
+                                      .doc('allmoodpost')
+                                      .collection('moodposts')
+                                      .add({
+                                    "postMessage": _postMessageController.text,
+                                    "emotion": moodTask.getMood(),
+                                    "postImageUrl": profileData['photoUrl'],
+                                    'name': profileData['name'],
+                                  });
+                                  _postMessageController.clear();
+                                  Toast.show(
+                                    "Post Successfully Uploaded",
+                                    context,
+                                    duration: 3,
+                                    gravity: Toast.BOTTOM,
+                                    backgroundColor:
+                                        Theme.of(context).primaryColor,
+                                    textColor: Colors.white,
+                                  );
+                                } catch (e) {
+                                  print("Something went wrong");
+                                }
+                              } else {
                                 Toast.show(
-                                  "Post Successfully Uploaded",
+                                  "Empty Post can't be uploaded",
                                   context,
                                   duration: 3,
                                   gravity: Toast.BOTTOM,
@@ -370,8 +410,6 @@ class _MoodPostMiniState extends State<MoodPostMini> {
                                       Theme.of(context).primaryColor,
                                   textColor: Colors.white,
                                 );
-                              } catch (e) {
-                                print("Something went wrong");
                               }
                             },
                             child: Text(

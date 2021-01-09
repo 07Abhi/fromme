@@ -25,6 +25,7 @@ class _MoodPostState extends State<MoodPost> {
   DocumentSnapshot userData;
   File pickFile;
   String imageUrl;
+  bool isImage = false;
 
   Future<DocumentSnapshot> fetchData() async {
     userData = await _firestore
@@ -47,15 +48,17 @@ class _MoodPostState extends State<MoodPost> {
                   await ImagePicker().getImage(source: ImageSource.gallery);
               image = File(pickImage.path);
               Navigator.of(context).pop();
-              final reference = _storage.ref().child('moodPostPhotos/');
+              final reference = _storage
+                  .ref()
+                  .child('${_firebaseAuth.currentUser.uid}mood post/');
               final uploadTask = reference.putFile(image);
-              uploadTask.whenComplete(() {
-                setState(() async {
-                  print("photo is done");
-                  pickFile = image;
-                  imageUrl = await reference.getDownloadURL();
-                  print(imageUrl);
-                });
+              uploadTask.whenComplete(() async {
+                imageUrl = await reference.getDownloadURL();
+                print(imageUrl);
+              });
+              setState(() {
+                isImage = true;
+                pickFile = image;
               });
               Toast.show(
                 "Image Uploaded",
@@ -78,14 +81,17 @@ class _MoodPostState extends State<MoodPost> {
                   await ImagePicker().getImage(source: ImageSource.camera);
               image = File(pickImage.path);
               Navigator.of(context).pop();
-              final reference = _storage.ref().child('moodPostPhotos/');
+              final reference = _storage
+                  .ref()
+                  .child('${_firebaseAuth.currentUser.uid}mood post/');
               final uploadTask = reference.putFile(image);
-              uploadTask.whenComplete(() {
-                setState(() async {
-                  pickFile = image;
-                  imageUrl = await reference.getDownloadURL();
-                  print(imageUrl);
-                });
+              uploadTask.whenComplete(() async {
+                imageUrl = await reference.getDownloadURL();
+                print(imageUrl);
+              });
+              setState(() {
+                isImage = true;
+                pickFile = image;
               });
               Toast.show(
                 "Image Uploaded",
@@ -250,6 +256,24 @@ class _MoodPostState extends State<MoodPost> {
                     thickness: 2.0,
                     color: Colors.grey.shade200,
                   ),
+                  Visibility(
+                    visible: isImage,
+                    child: Align(
+                      child: Container(
+                        height: 100.0,
+                        width: 100.0,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          image: DecorationImage(
+                            image: isImage
+                                ? FileImage(pickFile)
+                                : AssetImage('assets/userlogo.png'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -403,12 +427,14 @@ class _MoodPostState extends State<MoodPost> {
                               try {
                                 _firestore
                                     .collection('usermoodpost')
-                                    .doc(_firebaseAuth.currentUser.uid)
+                                    .doc('allmoodpost')
                                     .collection('moodposts')
-                                    .add({
+                                    .doc()
+                                    .set({
                                   "postMessage": _postMessageController.text,
                                   "emotion": moodTask.getMood(),
-                                  "postImageUrl": imageUrl,
+                                  "postImageUrl": profileData['photoUrl'],
+                                  "user":profileData['name'],
                                 });
                                 _postMessageController.clear();
                                 Toast.show(

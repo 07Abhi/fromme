@@ -64,6 +64,7 @@ class _HomePageState extends State<HomePage> {
     if (widget.faceBookData != null) {
       await widget.faceBookData.logOut();
       widget.firebaseAuth.signOut();
+      makeUserOffline();
       Navigator.pushReplacementNamed(context, LoginPage.id);
       Toast.show(
         "Logout Succesfully!!",
@@ -76,6 +77,7 @@ class _HomePageState extends State<HomePage> {
     } else if (widget.googleData != null) {
       await widget.googleData.signOut();
       widget.firebaseAuth.signOut();
+      makeUserOffline();
       Navigator.pushReplacementNamed(context, LoginPage.id);
       Toast.show(
         "Logout Succesfully!!",
@@ -86,11 +88,12 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Theme.of(context).primaryColor,
       );
     } else {
-      if (widget.firebaseAuth == null) {
-        _firebaseAuth.signOut();
-      } else {
+      if (widget.firebaseAuth != null) {
         widget.firebaseAuth.signOut();
+      } else {
+        _firebaseAuth.signOut();
       }
+      makeUserOffline();
       Navigator.pushReplacementNamed(context, LoginPage.id);
       Toast.show(
         "Logout Succesfully!!",
@@ -126,10 +129,29 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  makeUserOnline() async {
+    _firestore
+        .collection('userdata')
+        .doc(_firebaseAuth.currentUser.uid)
+        .update({
+      "isOnline": true,
+    });
+  }
+
+  makeUserOffline() async {
+    _firestore
+        .collection('userdata')
+        .doc(_firebaseAuth.currentUser.uid)
+        .update({
+      "isOnline": false,
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     getUserName(context);
+    makeUserOnline();
   }
 
   @override
@@ -189,6 +211,7 @@ class _HomePageState extends State<HomePage> {
           )
         : Scaffold(
             key: _scaffKey,
+            resizeToAvoidBottomInset: false,
             backgroundColor: Colors.grey.shade100,
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(70.0),
@@ -286,8 +309,11 @@ class _HomePageState extends State<HomePage> {
                         value: action.logout,
                       ),
                     ],
-                    onSelected: (val) {
+                    onSelected: (val) async {
                       if (val == action.logout) {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        prefs.setBool('isLogged', false);
                         _signOut();
                       }
                     },

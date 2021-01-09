@@ -33,6 +33,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   String imageUrl;
   bool isLoading = false;
   DocumentSnapshot userdata;
+  bool isImage = false;
   // final _firebaseUser = FirebaseAuth.instance;
 
   bool _nameChecker(String data) {
@@ -73,13 +74,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
               final reference =
                   _storage.ref().child('${_auth.currentUser.uid}/');
               final uploadTask = reference.putFile(image);
-              uploadTask.whenComplete(() {
-                setState(() async {
-                  print("photo is done");
-                  pickFile = image;
-                  imageUrl = await reference.getDownloadURL();
-                  print(imageUrl);
-                });
+              uploadTask.whenComplete(() async {
+                imageUrl = await reference.getDownloadURL();
+                print(imageUrl);
+              });
+              setState(() {
+                isImage = true;
+                pickFile = image;
               });
               Toast.show(
                 "Image Uploaded",
@@ -105,12 +106,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
               final reference =
                   _storage.ref().child('${_auth.currentUser.displayName}/');
               final uploadTask = reference.putFile(image);
-              uploadTask.whenComplete(() {
-                setState(() async {
-                  pickFile = image;
-                  imageUrl = await reference.getDownloadURL();
-                  print(imageUrl);
-                });
+              uploadTask.whenComplete(() async {
+                imageUrl = await reference.getDownloadURL();
+                print(imageUrl);
+              });
+              setState(() {
+                isImage = true;
+                pickFile = image;
               });
               Toast.show(
                 "Image Uploaded",
@@ -241,16 +243,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         children: [
                           Row(
                             children: [
-                              CircleAvatar(
-                                radius: 40.0,
-                                backgroundColor: Colors.blue.shade200,
-                                child: Center(
-                                  child: IconButton(
-                                    icon: Icon(Icons.camera),
-                                    onPressed: () {
-                                      uploadImage(context);
-                                    },
-                                  ),
+                              GestureDetector(
+                                onTap: () {
+                                  uploadImage(context);
+                                },
+                                child: CircleAvatar(
+                                  radius: 40.0,
+                                  backgroundImage: isImage
+                                      ? FileImage(pickFile)
+                                      : NetworkImage(
+                                          'https://cdn2.iconfinder.com/data/icons/image-editing-6/1000/Image_Edit-14-512.png'),
                                 ),
                               ),
                               SizedBox(
