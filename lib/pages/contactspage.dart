@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fromme/models/contactsmodel.dart';
 
 class ContactPage extends StatefulWidget {
   static const String id = "/contactpage";
@@ -7,17 +10,227 @@ class ContactPage extends StatefulWidget {
 }
 
 class _ContactPageState extends State<ContactPage> {
-  @override
-  void initState() {
-    print("hello world");
-    super.initState();
+  FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  QuerySnapshot userData;
+  List<ContactModel> contactsData = [];
+  Future<QuerySnapshot> getUserContacts() async {
+    userData = await _firebaseFirestore.collection('userdata').get();
+    return userData;
   }
 
   @override
   Widget build(BuildContext context) {
+    contactsData = [];
     return Scaffold(
-      body: Center(
-        child: Text("Contact Page"),
+      body: FutureBuilder<QuerySnapshot>(
+        future: getUserContacts(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.white54,
+                strokeWidth: 5.0,
+              ),
+            );
+          }
+          snapshot.data.docs.forEach(
+            (data) {
+              contactsData.add(
+                ContactModel(
+                  name: data['name'],
+                  address: data['address'],
+                  mobile: data['mobile'],
+                  email: data['email'],
+                  photoUrl: data['photoUrl'],
+                ),
+              );
+            },
+          );
+          return ListView.builder(
+            itemCount: contactsData.length,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return ExpandTiles(
+                userDetails: contactsData[index],
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+}
+
+class ExpandTiles extends StatefulWidget {
+  ContactModel userDetails;
+  ExpandTiles({this.userDetails});
+
+  @override
+  _ExpandTilesState createState() => _ExpandTilesState();
+}
+
+class _ExpandTilesState extends State<ExpandTiles> {
+  bool _isExpanded = false;
+
+  void _expandFunc() {
+    setState(() {
+      _isExpanded = !_isExpanded;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 80.0,
+            width: MediaQuery.of(context).size.width,
+            color: Color(0xfff8bbd0),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    radius: 35.0,
+                    backgroundImage: NetworkImage(widget.userDetails.photoUrl),
+                  ),
+                  SizedBox(
+                    width: 5.0,
+                  ),
+                  Expanded(
+                    child: Text(
+                      widget.userDetails.name,
+                      style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black),
+                    ),
+                  ),
+                  _isExpanded
+                      ? IconButton(
+                          icon: Icon(
+                            Icons.keyboard_arrow_up,
+                            size: 25.0,
+                          ),
+                          onPressed: () => _expandFunc(),
+                        )
+                      : IconButton(
+                          icon: Icon(
+                            Icons.keyboard_arrow_right,
+                            size: 25.0,
+                          ),
+                          onPressed: () => _expandFunc(),
+                        )
+                ],
+              ),
+            ),
+          ),
+          Visibility(
+            visible: _isExpanded,
+            child: Container(
+              height: 130.0,
+              width: MediaQuery.of(context).size.width,
+              color: Color(0xffe1bee7),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 10.0, vertical: 10.0),
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Email:- ",
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                        Expanded(
+                          child: Text(
+                            widget.userDetails.email,
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Mobile:- ",
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                        Expanded(
+                          child: Text(
+                            widget.userDetails.mobile,
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Address:- ",
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                        Expanded(
+                          child: Text(
+                            widget.userDetails.address,
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

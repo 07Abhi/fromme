@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:fromme/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
@@ -523,6 +523,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               backgroundColor: Theme.of(context).primaryColor,
                               textColor: Colors.white,
                             );
+                            if (onRefreshProfile != null) {
+                              onRefreshProfile();
+                            }
                           }).catchError((error) {
                             Toast.show(
                               'error is occurred',

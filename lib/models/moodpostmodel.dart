@@ -3,5 +3,7 @@ class MoodPostData {
   String emotion;
   String photoUrl;
   String postData;
-  MoodPostData({this.emotion, this.name, this.photoUrl, this.postData});
+  String uid;
+  String timeStamp;
+  MoodPostData({this.emotion, this.name, this.photoUrl, this.postData, this.timeStamp, this.uid});
 }

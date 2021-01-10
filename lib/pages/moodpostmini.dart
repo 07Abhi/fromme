@@ -386,6 +386,8 @@ class _MoodPostMiniState extends State<MoodPostMini> {
                                     "emotion": moodTask.getMood(),
                                     "postImageUrl": profileData['photoUrl'],
                                     'name': profileData['name'],
+                                    "uid": _firebaseAuth.currentUser.uid,
+                                    "timeStamp": DateTime.now().toString(),
                                   });
                                   _postMessageController.clear();
                                   Toast.show(

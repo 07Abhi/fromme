@@ -33,6 +33,7 @@ class _EmotionbtnblueState extends State<Emotionbtnblue> {
                     _isSelected4 = false;
                   });
                   moodTask.applyMood(moods[0]);
+                  Navigator.pop(context);
                 },
                 child: Container(
                   height: 40.0,

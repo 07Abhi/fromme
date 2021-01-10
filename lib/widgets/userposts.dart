@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fromme/models/moodpostmodel.dart';
+import 'package:timeago/timeago.dart' as timeAgo;
 
 Widget userPostsContainer(BuildContext context, List<MoodPostData> data) {
+  final tenAgo = new DateTime.now();
+
   return ListView.builder(
       shrinkWrap: true,
       itemCount: data.length,
@@ -47,7 +50,8 @@ Widget userPostsContainer(BuildContext context, List<MoodPostData> data) {
                               height: 5.0,
                             ),
                             Text(
-                              "going to add this soon",
+                              timeAgo.format(
+                                  DateTime.parse(data[index].timeStamp)),
                               style: TextStyle(
                                 fontSize: 14.0,
                                 fontWeight: FontWeight.w500,
@@ -60,7 +64,7 @@ Widget userPostsContainer(BuildContext context, List<MoodPostData> data) {
                       Text(
                         data[index].emotion,
                         style: TextStyle(
-                          fontSize: 22.0,
+                          fontSize: 20.0,
                           fontWeight: FontWeight.w900,
                           color: Color(0xff27AE60),
                         ),
@@ -76,12 +80,19 @@ Widget userPostsContainer(BuildContext context, List<MoodPostData> data) {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: Text(
-                      data[index].postData,
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w600,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10.0,
+                      horizontal: 10.0,
+                    ),
+                    child: Container(
+                      height: 100.0,
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(
+                        data[index].postData,
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),

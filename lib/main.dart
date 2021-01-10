@@ -36,6 +36,8 @@ void main() async {
   runApp(MyApp());
 }
 
+VoidCallback onRefreshProfile;
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

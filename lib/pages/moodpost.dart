@@ -434,7 +434,9 @@ class _MoodPostState extends State<MoodPost> {
                                   "postMessage": _postMessageController.text,
                                   "emotion": moodTask.getMood(),
                                   "postImageUrl": profileData['photoUrl'],
-                                  "user":profileData['name'],
+                                  "user": profileData['name'],
+                                  "uid": _firebaseAuth.currentUser.uid,
+                                  "timeStamp": DateTime.now().toString(),
                                 });
                                 _postMessageController.clear();
                                 Toast.show(

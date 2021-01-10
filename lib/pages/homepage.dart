@@ -6,7 +6,6 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:fromme/loginpages/loginpage.dart';
 import 'package:fromme/pages/chatpage.dart';
 import 'package:fromme/pages/contactspage.dart';
-import 'package:fromme/pages/editprofile.dart';
 import 'package:fromme/pages/giftpage.dart';
 import 'package:fromme/pages/moodpost.dart';
 import 'package:fromme/pages/moodpostmini.dart';
@@ -19,6 +18,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:toast/toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/circles.dart';
+import 'package:fromme/main.dart';
 
 enum action { logout }
 
@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  getUserName(BuildContext context) async {
+  getUserName() async {
     setState(() {
       isLoading = true;
     });
@@ -117,16 +117,12 @@ class _HomePageState extends State<HomePage> {
         .collection('userdata')
         .doc(_firebaseAuth.currentUser.uid)
         .get();
-    if (userData.exists) {
-      setState(() {
-        username = userData['name'];
-        photoUrl = userData['photoUrl'];
-        isLoading = false;
-      });
-    } else {
-      print("inside new page");
-      Navigator.pushNamed(context, EditProfilePage.id);
-    }
+
+    setState(() {
+      username = userData['name'];
+      photoUrl = userData['photoUrl'];
+      isLoading = false;
+    });
   }
 
   makeUserOnline() async {
@@ -147,10 +143,15 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  VoidCallback _refreshFunction() {
+    getUserName();
+  }
+
   @override
   void initState() {
     super.initState();
-    getUserName(context);
+    onRefreshProfile = _refreshFunction;
+    getUserName();
     makeUserOnline();
   }
 
