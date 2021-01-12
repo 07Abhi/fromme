@@ -21,42 +21,80 @@ class _ContactPageState extends State<ContactPage> {
 
   @override
   Widget build(BuildContext context) {
-    contactsData = [];
-    return Scaffold(
-      body: FutureBuilder<QuerySnapshot>(
-        future: getUserContacts(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.white54,
-                strokeWidth: 5.0,
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(50.0),
+          child: AppBar(
+            elevation: 0.0,
+            shadowColor: Colors.white,
+            backgroundColor: Colors.white,
+            bottom: TabBar(
+              indicatorColor: Colors.indigo,
+              indicatorSize: TabBarIndicatorSize.tab,
+              indicatorWeight: 3.0,
+              labelStyle: TextStyle(
+                fontSize: 17.0,
+                fontWeight: FontWeight.w600,
               ),
-            );
-          }
-          snapshot.data.docs.forEach(
-            (data) {
-              contactsData.add(
-                ContactModel(
-                  name: data['name'],
-                  address: data['address'],
-                  mobile: data['mobile'],
-                  email: data['email'],
-                  photoUrl: data['photoUrl'],
+              //labelColor: Theme.of(context).primaryColor,
+              tabs: <Widget>[
+                Tab(
+                  text: "Recents",
                 ),
-              );
-            },
-          );
-          return ListView.builder(
-            itemCount: contactsData.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return ExpandTiles(
-                userDetails: contactsData[index],
-              );
-            },
-          );
-        },
+                Tab(
+                  text: "Contacts",
+                ),
+              ],
+            ),
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            Center(
+              child: Text("Under Development"),
+            ),
+            FutureBuilder<QuerySnapshot>(
+              future: getUserContacts(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.white54,
+                      strokeWidth: 5.0,
+                    ),
+                  );
+                }
+                contactsData = [];
+                snapshot.data.docs.forEach(
+                  (data) {
+                    if (_auth.currentUser.email != data['email']) {
+                      contactsData.add(
+                        ContactModel(
+                          name: data['name'],
+                          address: data['address'],
+                          mobile: data['mobile'],
+                          email: data['email'],
+                          photoUrl: data['photoUrl'],
+                        ),
+                      );
+                    }
+                  },
+                );
+                return ListView.builder(
+                  itemCount: contactsData.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return ExpandTiles(
+                      userDetails: contactsData[index],
+                    );
+                  },
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -89,7 +127,7 @@ class _ExpandTilesState extends State<ExpandTiles> {
           Container(
             height: 80.0,
             width: MediaQuery.of(context).size.width,
-            color: Color(0xfff8bbd0),
+            color: Colors.grey.shade200,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(
@@ -135,7 +173,7 @@ class _ExpandTilesState extends State<ExpandTiles> {
             child: Container(
               height: 130.0,
               width: MediaQuery.of(context).size.width,
-              color: Color(0xffe1bee7),
+              color: Colors.grey.shade300,
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 10.0, vertical: 10.0),

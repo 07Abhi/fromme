@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fromme/chatservice/chatpage.dart';
+import 'package:fromme/chatservice/chatwindow.dart';
 import 'package:fromme/loginpages/forgetpasswordpage.dart';
 import 'package:fromme/messagepages/emptypostscreen.dart';
 import 'package:fromme/messagepages/nodatafound.dart';
@@ -7,7 +9,6 @@ import 'package:fromme/messagepages/nointernetpage.dart';
 import 'package:fromme/messagepages/somethingwentwrong.dart';
 import 'package:fromme/messagepages/splashscreen.dart';
 import 'package:fromme/moodpostmanager/moodmanager.dart';
-import 'package:fromme/pages/chatpage.dart';
 import 'package:fromme/pages/contactspage.dart';
 import 'package:fromme/pages/editprofile.dart';
 import 'package:fromme/pages/giftpage.dart';
@@ -83,8 +84,10 @@ class MyApp extends StatelessWidget {
           //buttomNavigationPage
           TimeLinePage.id: (context) => TimeLinePage(),
           ContactPage.id: (context) => ContactPage(),
-          ChatPage.id: (context) => ChatPage(),
           GiftPage.id: (context) => GiftPage(),
+          //chatpages
+          ChatPage.id: (context) => ChatPage(),
+          ChatWindow.id: (context) => ChatWindow(),
         },
       ),
     );

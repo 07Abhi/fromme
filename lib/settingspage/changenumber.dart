@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:toast/toast.dart';
@@ -11,6 +13,8 @@ class ChangeNumber extends StatefulWidget {
 
 class _ChangeNumberState extends State<ChangeNumber> {
   TextEditingController _mobileController = new TextEditingController();
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,15 +131,35 @@ class _ChangeNumberState extends State<ChangeNumber> {
                         ),
                       ),
                       color: Theme.of(context).primaryColor,
-                      onPressed: () {
-                        Toast.show(
-                          "Change Request is send!!!",
-                          context,
-                          duration: 2,
-                          gravity: Toast.BOTTOM,
-                          backgroundColor: Theme.of(context).primaryColor,
-                          textColor: Colors.white,
-                        );
+                      onPressed: () async {
+                        try {
+                          await _firebaseFirestore
+                              .collection("userdata")
+                              .doc(_auth.currentUser.uid)
+                              .update({
+                            "mobile": _mobileController.text,
+                          });
+                          SystemChannels.textInput
+                              .invokeMethod("TextInput.hide");
+                          _mobileController.clear();
+                          Toast.show(
+                            "Chnage Request Sent!!",
+                            context,
+                            duration: 2,
+                            gravity: Toast.BOTTOM,
+                            backgroundColor: Theme.of(context).primaryColor,
+                            textColor: Colors.white,
+                          );
+                        } catch (e) {
+                          Toast.show(
+                            e.message,
+                            context,
+                            duration: 2,
+                            gravity: Toast.BOTTOM,
+                            backgroundColor: Theme.of(context).primaryColor,
+                            textColor: Colors.white,
+                          );
+                        }
                       },
                     ),
                   ),

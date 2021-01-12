@@ -11,7 +11,7 @@ class _GiftPageState extends State<GiftPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("Gift Page"),
+        child: Text("Under Development!!!"),
       ),
     );
   }

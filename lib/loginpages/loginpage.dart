@@ -441,11 +441,19 @@ class _LoginPageState extends State<LoginPage> {
                           textColor: Colors.white,
                           backgroundColor: Theme.of(context).primaryColor,
                         );
-                        _firestore.collection("userdata").add({
-                          'email': _googleSignIn.currentUser.email,
-                          'name': _googleSignIn.currentUser.displayName,
-                          'mobile': "Not Attach Yet",
-                          'photoUrl': _googleSignIn.currentUser.photoUrl,
+                        _firestore
+                            .collection("userdata")
+                            .doc(_googleSignIn.currentUser.id)
+                            .set({
+                          "address": null,
+                          "availableStatus": true,
+                          "email": _googleSignIn.currentUser.email,
+                          "gender": null,
+                          "isOnline": false,
+                          "mobile": null,
+                          "name": _googleSignIn.currentUser.displayName,
+                          "photoUrl": _googleSignIn.currentUser.photoUrl,
+                          "uid": _googleSignIn.currentUser.id
                         });
                       },
                     ),
@@ -469,11 +477,20 @@ class _LoginPageState extends State<LoginPage> {
                           textColor: Colors.white,
                           backgroundColor: Theme.of(context).primaryColor,
                         );
-                        _firestore.collection('userdata').add({
+                        _firestore
+                            .collection('userdata')
+                            .doc(userProflie['id'])
+                            .set({
+                          'address': null,
+                          'availableStatus': true,
+                          'dob': null,
                           'email': userProflie['email'],
+                          'gender': null,
+                          'isOnline': true,
+                          'mobile': null,
                           'name': userProflie['name'],
-                          'mobile': "Not Attach Yet",
-                          'photoUrl': "Not Attach Yet",
+                          'photoUrl': null,
+                          'uid': userProflie['id']
                         });
                       },
                     )

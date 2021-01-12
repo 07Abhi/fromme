@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fromme/chatservice/chatpage.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
 import 'package:fromme/models/statusmodel.dart';
-
 import 'package:fromme/widgets/userstatusbar.dart';
-import 'package:toast/toast.dart';
 
 class TimeLinePage extends StatefulWidget {
   static const String id = "/timelinepage";
@@ -97,7 +96,7 @@ class _TimeLinePageState extends State<TimeLinePage> {
   @override
   Widget build(BuildContext context) {
     //_moodposts = [];
-    _statusInfo = [];
+
     return Scaffold(
       body: FutureBuilder<QuerySnapshot>(
         future: getUserStoryTiles(),
@@ -110,15 +109,18 @@ class _TimeLinePageState extends State<TimeLinePage> {
               ),
             );
           }
+          _statusInfo = [];
           snapshot.data.docs.forEach(
             (data) {
-              _statusInfo.add(
-                StatusModel(
-                  isOnline: data['isOnline'],
-                  photoUrl: data['photoUrl'] ??
-                      "https://image.flaticon.com/icons/png/512/64/64572.png",
-                ),
-              );
+              if (_auth.currentUser.email != data['email']) {
+                _statusInfo.add(
+                  StatusModel(
+                    isOnline: data['isOnline'],
+                    photoUrl: data['photoUrl'] ??
+                        "https://image.flaticon.com/icons/png/512/64/64572.png",
+                  ),
+                );
+              }
             },
           );
           return Column(
@@ -311,29 +313,34 @@ class _TimeLinePageState extends State<TimeLinePage> {
                                                     )
                                                   ],
                                                 ),
-                                                Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons
-                                                          .chat_bubble_outline_outlined,
-                                                      size: 35.0,
-                                                      color: Theme.of(context)
-                                                          .primaryColor,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 5.0,
-                                                    ),
-                                                    Text(
-                                                      'Chat',
-                                                      style: TextStyle(
-                                                        color:
-                                                            Color(0xff595959),
-                                                        fontSize: 15.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
+                                                GestureDetector(
+                                                  onTap: () =>
+                                                      Navigator.pushNamed(
+                                                          context, ChatPage.id),
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons
+                                                            .chat_bubble_outline_outlined,
+                                                        size: 35.0,
+                                                        color: Theme.of(context)
+                                                            .primaryColor,
                                                       ),
-                                                    )
-                                                  ],
+                                                      SizedBox(
+                                                        width: 5.0,
+                                                      ),
+                                                      Text(
+                                                        'Chat',
+                                                        style: TextStyle(
+                                                          color:
+                                                              Color(0xff595959),
+                                                          fontSize: 15.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
                                               ],
                                             )

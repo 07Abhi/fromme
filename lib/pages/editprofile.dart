@@ -510,6 +510,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             'dob': _dobController.text,
                             'availableStatus': true,
                             'photoUrl': imageUrl,
+                            'uid': _auth.currentUser.uid
                           }).then((value) {
                             _nameController.clear();
                             _emailController.clear();
