@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fromme/pages/editprofile.dart';
-import 'package:fromme/settingspage/aboutus.dart';
-import 'package:fromme/settingspage/changenumber.dart';
-import 'package:fromme/settingspage/contactus.dart';
-import 'package:fromme/settingspage/faqpage.dart';
-import 'package:fromme/settingspage/notification.dart';
+import 'package:fromme/pages/setting_pages/editprofile.dart';
+import 'aboutus.dart';
+import 'changenumber.dart';
+import 'contactus.dart';
+import 'faqpage.dart';
+import 'notification.dart';
 
 class SettingPage extends StatelessWidget {
   static const String id = "/settings";

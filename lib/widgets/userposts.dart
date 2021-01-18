@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fromme/chatservice/chatpage.dart';
 import 'package:fromme/models/moodpostmodel.dart';
+import 'package:fromme/pages/navigation_pages/chatpage.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
 
 Widget userPostsContainer(BuildContext context, List<MoodPostData> data) {

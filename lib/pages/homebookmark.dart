@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fromme/widgets/emotionbtnblue.dart';
-import 'package:fromme/widgets/emotionbtngreen.dart';
-import 'package:fromme/widgets/emotionbtnred.dart';
-import 'package:fromme/widgets/emotionbuttonyellow.dart';
+import 'package:fromme/widgets/emotion_tiles_widgets/emotionbtnblue.dart';
+import 'package:fromme/widgets/emotion_tiles_widgets/emotionbtngreen.dart';
+import 'package:fromme/widgets/emotion_tiles_widgets/emotionbtnred.dart';
+import 'package:fromme/widgets/emotion_tiles_widgets/emotionbuttonyellow.dart';
 
 class HomeBookMark extends StatefulWidget {
   static String id = "/homebookmark";

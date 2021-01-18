@@ -436,7 +436,9 @@ class _MoodPostState extends State<MoodPost> {
                                   "postImageUrl": profileData['photoUrl'],
                                   "user": profileData['name'],
                                   "uid": _firebaseAuth.currentUser.uid,
-                                  "timeStamp": DateTime.now().toString(),
+                                  "timeStamp": DateTime.now(),
+                                  "postTime":
+                                      DateTime.now().millisecondsSinceEpoch,
                                 });
                                 _postMessageController.clear();
                                 Toast.show(

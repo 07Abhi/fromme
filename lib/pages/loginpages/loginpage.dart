@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:fromme/loginpages/forgetpasswordpage.dart';
-import 'package:fromme/loginpages/signuppage.dart';
+import 'package:fromme/pages/loginpages/forgetpasswordpage.dart';
+import 'package:fromme/pages/loginpages/signuppage.dart';
+import 'package:fromme/pages/navigation_pages/homepage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,7 +12,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' as json;
 import 'package:toast/toast.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:fromme/pages/homepage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {

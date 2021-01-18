@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fromme/chatservice/chatpage.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
 import 'package:fromme/models/statusmodel.dart';
 import 'package:fromme/widgets/userstatusbar.dart';
+
+import 'navigation_pages/chatpage.dart';
 
 class TimeLinePage extends StatefulWidget {
   static const String id = "/timelinepage";

@@ -31,6 +31,8 @@ dependencies:
   firebase_storage: ^5.2.0
   provider: ^4.3.2+3
   timeago: ^2.0.29
+  flutter_local_notifications: ^3.0.3
+  firebase_messaging: ^7.0.3
   
 
 

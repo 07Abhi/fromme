@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fromme/loginpages/loginpage.dart';
+import 'package:fromme/pages/loginpages/loginpage.dart';
 
 class SplashPage extends StatefulWidget {
   static const String id = "/splashPage";
