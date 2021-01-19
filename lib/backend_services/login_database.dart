@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class BackendDBservices {
   static createNewUser({String email, String password}) async {
@@ -9,7 +9,8 @@ class BackendDBservices {
     return registerUser;
   }
 
-  static saveSignUpData({String uid, String name, String mobile, String email}) async {
+  static saveSignUpData(
+      {String uid, String name, String mobile, String email}) async {
     FirebaseFirestore.instance.collection('userdata').doc(uid).set({
       "name": name,
       "mobile": mobile,
@@ -19,6 +20,41 @@ class BackendDBservices {
       "availableStatus": null,
       "gender": null,
       "dob": null,
+    });
+  }
+
+  static saveGoogleSignUpData(GoogleSignIn googleSignIn) async {
+   await  FirebaseFirestore.instance
+        .collection('userdata')
+        .doc(googleSignIn.currentUser.id)
+        .set({
+      "address": null,
+      "availableStatus": true,
+      "email": googleSignIn.currentUser.email,
+      "gender": null,
+      "isOnline": false,
+      "mobile": null,
+      "name": googleSignIn.currentUser.displayName,
+      "photoUrl": googleSignIn.currentUser.photoUrl,
+      "uid": googleSignIn.currentUser.id
+    });
+  }
+
+  static saveFacebookSignUpData(Map userProfile) async{
+    await  FirebaseFirestore.instance
+        .collection('userdata')
+        .doc(userProfile['id'])
+        .set({
+      'address': null,
+      'availableStatus': true,
+      'dob': null,
+      'email': userProfile['email'],
+      'gender': null,
+      'isOnline': true,
+      'mobile': null,
+      'name': userProfile['name'],
+      'photoUrl': null,
+      'uid': userProfile['id']
     });
   }
 }

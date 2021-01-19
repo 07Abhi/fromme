@@ -166,4 +166,19 @@ class AppTextStyles {
       fontWeight: FontWeight.w500,
     );
   }
+
+  static TextStyle loginOptionTextStyle() {
+    return TextStyle(
+        fontSize: 20.0,
+        fontWeight: FontWeight.w600,
+        color: AppColor.loginChoiceTextColor);
+  }
+
+  static TextStyle forgetPassInfoStyle() {
+    return TextStyle(
+      fontSize: 16.0,
+      fontWeight: FontWeight.w600,
+      color: AppColor.forgetpassInformationColor,
+    );
+  }
 }

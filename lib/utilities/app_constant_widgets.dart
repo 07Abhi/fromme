@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fromme/utilities/app_colors.dart';
 import 'package:fromme/utilities/app_textstyles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:toast/toast.dart';
 
@@ -46,5 +47,10 @@ class AppConstantsWidgets {
       backgroundColor: AppColor.snackbarBackgroundColor,
       duration: Duration(seconds: 2),
     );
+  }
+
+  static setLoginPrefference(bool isLogin) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool('isLogged', isLogin);
   }
 }

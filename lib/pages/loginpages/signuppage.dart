@@ -165,7 +165,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     _hidePassword ? "show" : "hide",
                                     style: TextStyle(
                                       fontSize: 13.0,
-                                      color: Colors.grey.shade500,
+                                      color: AppColor.showpasswordColor,
                                     ),
                                   ),
                                 ),

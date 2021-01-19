@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class AppColor {
   static const scaffoldColor = Color(0xffFFFFFF);
   static const appBarBackButtonColor = Color(0xDD000000);
+  static const showpasswordColor = Color(0xff9e9e9e);
   static const appBarHeadingColor = Color(0xff00bcd4);
   static const pageHeadingColor = Color(0xDD000000);
   static const textFieldInputColor = Color(0xffbdbdbd);
@@ -36,4 +37,6 @@ class AppColor {
   static const userStatusBarColor = Color(0xff000000);
   static const onlineIndicator = Color(0xff4caf50);
   static const offlineIndicator = Color(0xff2196f3);
+  static const loginChoiceTextColor = Color(0xff2DC4D9);
+  static const forgetpassInformationColor = Color(0xff757575);
 }
