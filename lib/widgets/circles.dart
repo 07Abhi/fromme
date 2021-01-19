@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fromme/utilities/app_colors.dart';
 
 class Circles extends StatelessWidget {
   final double height;
@@ -16,12 +17,12 @@ class Circles extends StatelessWidget {
           BoxShadow(
             offset: Offset(0.0, 3.0),
             blurRadius: 2.0,
-            color: Color(0xff2DC4D9),
+            color: AppColor.circleWidShadowColor1,
           ),
           BoxShadow(
             offset: Offset(0.0, -3.0),
             blurRadius: 2.0,
-            color: Colors.white,
+            color: AppColor.circleWidShadowColor2,
           ),
         ],
       ),

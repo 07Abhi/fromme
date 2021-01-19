@@ -112,4 +112,58 @@ class AppTextStyles {
       color: AppColor.emotionTilesYellowColor,
     );
   }
+
+  static TextStyle addMemberWidgetTextStyle() {
+    return TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  static TextStyle postOptionWidgetsTextStyle(Color colors) {
+    return TextStyle(
+      fontSize: 22.0,
+      fontWeight: FontWeight.w800,
+      color: colors,
+    );
+  }
+
+  static TextStyle userPostNameStyle() {
+    return TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.w900,
+      color: AppColor.userPostNameColor,
+    );
+  }
+
+  static TextStyle userPostTimeStyle() {
+    return TextStyle(
+      fontSize: 14.0,
+      fontWeight: FontWeight.w500,
+      color: AppColor.userPostTimeColor,
+    );
+  }
+
+  static TextStyle userPostEmotionStyle() {
+    return TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.w900,
+      color: AppColor.userPostEmotionColor,
+    );
+  }
+
+  static TextStyle usePostIndexStyle() {
+    return TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  static TextStyle userPostBottomBarStyle() {
+    return TextStyle(
+      color: AppColor.userPostBottomTextColor,
+      fontSize: 15.0,
+      fontWeight: FontWeight.w500,
+    );
+  }
 }

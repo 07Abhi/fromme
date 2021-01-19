@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fromme/models/moodpostmodel.dart';
 import 'package:fromme/pages/navigation_pages/chatpage.dart';
+import 'package:fromme/utilities/app_colors.dart';
+import 'package:fromme/utilities/app_textstyles.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
 
 Widget userPostsContainer(BuildContext context, List<MoodPostData> data) {
-  final tenAgo = new DateTime.now();
-
   return ListView.builder(
     shrinkWrap: true,
     itemCount: data.length,
@@ -15,7 +15,7 @@ Widget userPostsContainer(BuildContext context, List<MoodPostData> data) {
         child: Container(
           height: 270.0,
           width: MediaQuery.of(context).size.width,
-          color: Colors.white,
+          color: AppColor.userPostBackground,
           child: Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 5.0,
@@ -41,11 +41,7 @@ Widget userPostsContainer(BuildContext context, List<MoodPostData> data) {
                         children: [
                           Text(
                             data[index].name,
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.w900,
-                              color: Colors.black,
-                            ),
+                            style: AppTextStyles.userPostNameStyle(),
                           ),
                           SizedBox(
                             height: 5.0,
@@ -53,27 +49,19 @@ Widget userPostsContainer(BuildContext context, List<MoodPostData> data) {
                           Text(
                             timeAgo
                                 .format(DateTime.parse(data[index].timeStamp)),
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xff555555),
-                            ),
+                            style: AppTextStyles.userPostTimeStyle(),
                           )
                         ],
                       ),
                     ),
                     Text(
                       data[index].emotion,
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w900,
-                        color: Color(0xff27AE60),
-                      ),
+                      style: AppTextStyles.userPostEmotionStyle(),
                     ),
                     IconButton(
                       icon: Icon(
                         Icons.more_vert,
-                        color: Color(0xffAAAAAA),
+                        color: AppColor.userPostIconColor,
                         size: 30.0,
                       ),
                       onPressed: () {},
@@ -90,10 +78,7 @@ Widget userPostsContainer(BuildContext context, List<MoodPostData> data) {
                     width: MediaQuery.of(context).size.width,
                     child: Text(
                       data[index].postData,
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: AppTextStyles.usePostIndexStyle(),
                     ),
                   ),
                 ),
@@ -111,18 +96,14 @@ Widget userPostsContainer(BuildContext context, List<MoodPostData> data) {
                         Icon(
                           Icons.question_answer_outlined,
                           size: 35.0,
-                          color: Theme.of(context).primaryColor,
+                          color: AppColor.userPostIconColor,
                         ),
                         SizedBox(
                           width: 5.0,
                         ),
                         Text(
                           'Video Call',
-                          style: TextStyle(
-                            color: Color(0xff595959),
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: AppTextStyles.userPostBottomBarStyle(),
                         )
                       ],
                     ),
@@ -131,18 +112,14 @@ Widget userPostsContainer(BuildContext context, List<MoodPostData> data) {
                         Icon(
                           Icons.drafts,
                           size: 35.0,
-                          color: Theme.of(context).primaryColor,
+                          color: AppColor.userPostIconColor,
                         ),
                         SizedBox(
                           width: 5.0,
                         ),
                         Text(
                           'Call invite',
-                          style: TextStyle(
-                            color: Color(0xff595959),
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: AppTextStyles.userPostBottomBarStyle(),
                         )
                       ],
                     ),
@@ -153,18 +130,14 @@ Widget userPostsContainer(BuildContext context, List<MoodPostData> data) {
                           Icon(
                             Icons.chat_bubble_outline_outlined,
                             size: 35.0,
-                            color: Theme.of(context).primaryColor,
+                            color: AppColor.userPostIconColor,
                           ),
                           SizedBox(
                             width: 5.0,
                           ),
                           Text(
                             'Chat',
-                            style: TextStyle(
-                              color: Color(0xff595959),
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: AppTextStyles.userPostBottomBarStyle(),
                           )
                         ],
                       ),

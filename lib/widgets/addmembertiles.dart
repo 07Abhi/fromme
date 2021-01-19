@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:fromme/utilities/app_textstyles.dart';
 
 // ignore: must_be_immutable
 class AddMemberTiles extends StatefulWidget {
@@ -30,10 +30,7 @@ class _AddMemberTilesState extends State<AddMemberTiles> {
           Expanded(
             child: Text(
               widget.memberName,
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w600,
-              ),
+              style: AppTextStyles.addMemberWidgetTextStyle(),
             ),
           ),
           Checkbox(

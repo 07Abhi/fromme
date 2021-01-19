@@ -24,4 +24,16 @@ class AppColor {
   static const emotionTilesYellowColor = Color(0xfff2c94c);
   static const emotionTilesyellowSelectedColor = Color(0xfffffaec);
   static const emotionTilesUnselectedColor = Color(0xffffffff);
+  static const circleWidShadowColor1 = Color(0xff2DC4D9);
+  static const circleWidShadowColor2 = Color(0xffffffff);
+  static const userPostBackground = Color(0xffffffff);
+  static const userPostNameColor = Color(0xff000000);
+  static const userPostTimeColor = Color(0xff555555);
+  static const userPostEmotionColor = Color(0xff27AE60);
+  static const userPostIconColor = Color(0xffAAAAAA);
+  static const userPostBottomTextColor = Color(0xff595959);
+  static const userPostBottomIconColor = Color(0xff2DC4D9);
+  static const userStatusBarColor = Color(0xff000000);
+  static const onlineIndicator = Color(0xff4caf50);
+  static const offlineIndicator = Color(0xff2196f3);
 }

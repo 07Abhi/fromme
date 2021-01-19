@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fromme/utilities/app_textstyles.dart';
 
 class PostOptWidget extends StatelessWidget {
   final Color colors;
@@ -16,14 +17,11 @@ class PostOptWidget extends StatelessWidget {
         child: Center(
           child: Text(
             txt,
-            style: TextStyle(
-              fontSize: 22.0,
-              fontWeight: FontWeight.w800,
-              color: colors,
-            ),
+            style: AppTextStyles.postOptionWidgetsTextStyle(colors),
           ),
         ),
       ),
     );
   }
 }
+ 

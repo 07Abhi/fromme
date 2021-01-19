@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fromme/models/statusmodel.dart';
+import 'package:fromme/utilities/app_colors.dart';
 
 Widget userCircles(StatusModel data) {
   return Stack(
@@ -19,7 +20,9 @@ Widget userCircles(StatusModel data) {
           radius: 12.0,
           child: CircleAvatar(
             radius: 10.0,
-            backgroundColor: data.isOnline ? Colors.green : Colors.blue,
+            backgroundColor: data.isOnline
+                ? AppColor.onlineIndicator
+                : AppColor.offlineIndicator,
           ),
         ),
       )
@@ -31,7 +34,7 @@ Widget userStatusBar(BuildContext context, List<StatusModel> userData) {
   return Container(
     height: 100.0,
     width: MediaQuery.of(context).size.width,
-    color: Colors.white,
+    color: AppColor.userStatusBarColor,
     child: ListView.builder(
       itemBuilder: (context, index) => userCircles(userData[index]),
       itemCount: userData.length,
