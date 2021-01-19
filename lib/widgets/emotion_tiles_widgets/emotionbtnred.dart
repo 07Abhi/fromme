@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fromme/moodpostmanager/moodmanager.dart';
+import 'package:fromme/utilities/app_colors.dart';
+import 'package:fromme/utilities/app_textstyles.dart';
 import 'package:provider/provider.dart';
 
 class EmotionBtnRed extends StatefulWidget {
@@ -49,17 +51,15 @@ class _EmotionBtnRedState extends State<EmotionBtnRed> {
                 height: 40.0,
                 width: 180.0,
                 decoration: BoxDecoration(
-                  color: _isSelected ? Color(0xffffDEDE) : Colors.white,
+                  color: _isSelected
+                      ? AppColor.emotionTilesRedSelectedColor
+                      : AppColor.emotionTilesUnselectedColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Center(
                   child: Text(
                     "Angry",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xffeb5757),
-                    ),
+                    style: AppTextStyles.emotionTilesRedStyle(),
                   ),
                 ),
               ),
@@ -85,17 +85,15 @@ class _EmotionBtnRedState extends State<EmotionBtnRed> {
                 height: 40.0,
                 width: 180.0,
                 decoration: BoxDecoration(
-                  color: _isSelected1 ? Color(0xffffDEDE) : Colors.white,
+                  color: _isSelected1
+                      ? AppColor.emotionTilesRedSelectedColor
+                      : AppColor.emotionTilesUnselectedColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Center(
                   child: Text(
                     "Stressed",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xffeb5757),
-                    ),
+                    style: AppTextStyles.emotionTilesRedStyle(),
                   ),
                 ),
               ),
@@ -121,17 +119,15 @@ class _EmotionBtnRedState extends State<EmotionBtnRed> {
                 height: 40.0,
                 width: 180.0,
                 decoration: BoxDecoration(
-                  color: _isSelected2 ? Color(0xffffDEDE) : Colors.white,
+                  color: _isSelected2
+                      ? AppColor.emotionTilesRedSelectedColor
+                      : AppColor.emotionTilesUnselectedColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Center(
                   child: Text(
                     "Frustated",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xffeb5757),
-                    ),
+                    style: AppTextStyles.emotionTilesRedStyle(),
                   ),
                 ),
               ),
@@ -157,17 +153,15 @@ class _EmotionBtnRedState extends State<EmotionBtnRed> {
                 height: 40.0,
                 width: 180.0,
                 decoration: BoxDecoration(
-                  color: _isSelected3 ? Color(0xffffDEDE) : Colors.white,
+                  color: _isSelected3
+                      ? AppColor.emotionTilesRedSelectedColor
+                      : AppColor.emotionTilesUnselectedColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Center(
                   child: Text(
                     "Annoyed",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xffeb5757),
-                    ),
+                    style: AppTextStyles.emotionTilesRedStyle(),
                   ),
                 ),
               ),
@@ -193,17 +187,15 @@ class _EmotionBtnRedState extends State<EmotionBtnRed> {
                 height: 40.0,
                 width: 180.0,
                 decoration: BoxDecoration(
-                  color: _isSelected4 ? Color(0xffffDEDE) : Colors.white,
+                  color: _isSelected4
+                      ? AppColor.emotionTilesRedSelectedColor
+                      : AppColor.emotionTilesUnselectedColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Center(
                   child: Text(
                     "Resentful",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xffeb5757),
-                    ),
+                    style: AppTextStyles.emotionTilesRedStyle(),
                   ),
                 ),
               ),
@@ -229,17 +221,15 @@ class _EmotionBtnRedState extends State<EmotionBtnRed> {
                 height: 40.0,
                 width: 180.0,
                 decoration: BoxDecoration(
-                  color: _isSelected5 ? Color(0xffffDEDE) : Colors.white,
+                  color: _isSelected5
+                      ? AppColor.emotionTilesRedSelectedColor
+                      : AppColor.emotionTilesUnselectedColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Center(
                   child: Text(
                     "Impatient",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xffeb5757),
-                    ),
+                    style: AppTextStyles.emotionTilesRedStyle(),
                   ),
                 ),
               ),
@@ -265,17 +255,15 @@ class _EmotionBtnRedState extends State<EmotionBtnRed> {
                 height: 40.0,
                 width: 180.0,
                 decoration: BoxDecoration(
-                  color: _isSelected6 ? Color(0xffffDEDE) : Colors.white,
+                  color: _isSelected6
+                      ? AppColor.emotionTilesRedSelectedColor
+                      : AppColor.emotionTilesUnselectedColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Center(
                   child: Text(
                     "Bitter",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xffeb5757),
-                    ),
+                    style: AppTextStyles.emotionTilesRedStyle(),
                   ),
                 ),
               ),

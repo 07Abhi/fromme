@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fromme/moodpostmanager/moodmanager.dart';
+import 'package:fromme/utilities/app_colors.dart';
+import 'package:fromme/utilities/app_textstyles.dart';
 import 'package:provider/provider.dart';
 
 class EmotionbtnYellow extends StatefulWidget {
@@ -49,17 +51,15 @@ class _EmotionbtnYellowState extends State<EmotionbtnYellow> {
                 height: 40.0,
                 width: 180.0,
                 decoration: BoxDecoration(
-                  color: _isSelected ? Color(0xfffffaec) : Colors.white,
+                  color: _isSelected
+                      ? AppColor.emotionTilesyellowSelectedColor
+                      : AppColor.emotionTilesUnselectedColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Center(
                   child: Text(
                     "Curious",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xfff2c94c),
-                    ),
+                    style: AppTextStyles.emotionTilesYelowStyle(),
                   ),
                 ),
               ),
@@ -85,17 +85,15 @@ class _EmotionbtnYellowState extends State<EmotionbtnYellow> {
                 height: 40.0,
                 width: 180.0,
                 decoration: BoxDecoration(
-                  color: _isSelected1 ? Color(0xfffffaec) : Colors.white,
+                  color: _isSelected1
+                      ? AppColor.emotionTilesyellowSelectedColor
+                      : AppColor.emotionTilesUnselectedColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Center(
                   child: Text(
                     "Amazed",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xfff2c94c),
-                    ),
+                    style: AppTextStyles.emotionTilesYelowStyle(),
                   ),
                 ),
               ),
@@ -121,17 +119,15 @@ class _EmotionbtnYellowState extends State<EmotionbtnYellow> {
                 height: 40.0,
                 width: 180.0,
                 decoration: BoxDecoration(
-                  color: _isSelected2 ? Color(0xfffffaec) : Colors.white,
+                  color: _isSelected2
+                      ? AppColor.emotionTilesyellowSelectedColor
+                      : AppColor.emotionTilesUnselectedColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Center(
                   child: Text(
                     "Accomplished",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xfff2c94c),
-                    ),
+                    style: AppTextStyles.emotionTilesYelowStyle(),
                   ),
                 ),
               ),
@@ -157,17 +153,15 @@ class _EmotionbtnYellowState extends State<EmotionbtnYellow> {
                 height: 40.0,
                 width: 180.0,
                 decoration: BoxDecoration(
-                  color: _isSelected3 ? Color(0xfffffaec) : Colors.white,
+                  color: _isSelected3
+                      ? AppColor.emotionTilesyellowSelectedColor
+                      : AppColor.emotionTilesUnselectedColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Center(
                   child: Text(
                     "Flabbergasted",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xfff2c94c),
-                    ),
+                    style: AppTextStyles.emotionTilesYelowStyle(),
                   ),
                 ),
               ),
@@ -193,17 +187,15 @@ class _EmotionbtnYellowState extends State<EmotionbtnYellow> {
                 height: 40.0,
                 width: 180.0,
                 decoration: BoxDecoration(
-                  color: _isSelected4 ? Color(0xfffffaec) : Colors.white,
+                  color: _isSelected4
+                      ? AppColor.emotionTilesyellowSelectedColor
+                      : AppColor.emotionTilesUnselectedColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Center(
                   child: Text(
                     "Entertained",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xfff2c94c),
-                    ),
+                    style: AppTextStyles.emotionTilesYelowStyle(),
                   ),
                 ),
               ),
@@ -229,17 +221,15 @@ class _EmotionbtnYellowState extends State<EmotionbtnYellow> {
                 height: 40.0,
                 width: 180.0,
                 decoration: BoxDecoration(
-                  color: _isSelected5 ? Color(0xfffffaec) : Colors.white,
+                  color: _isSelected5
+                      ? AppColor.emotionTilesyellowSelectedColor
+                      : AppColor.emotionTilesUnselectedColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Center(
                   child: Text(
                     "Pumped",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xfff2c94c),
-                    ),
+                    style: AppTextStyles.emotionTilesYelowStyle(),
                   ),
                 ),
               ),
@@ -265,17 +255,15 @@ class _EmotionbtnYellowState extends State<EmotionbtnYellow> {
                 height: 40.0,
                 width: 180.0,
                 decoration: BoxDecoration(
-                  color: _isSelected6 ? Color(0xfffffaec) : Colors.white,
+                  color: _isSelected6
+                      ? AppColor.emotionTilesyellowSelectedColor
+                      : AppColor.emotionTilesUnselectedColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Center(
                   child: Text(
                     "Hyper",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xfff2c94c),
-                    ),
+                    style: AppTextStyles.emotionTilesYelowStyle(),
                   ),
                 ),
               ),

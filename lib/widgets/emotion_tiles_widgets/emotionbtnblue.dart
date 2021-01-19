@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fromme/moodpostmanager/moodmanager.dart';
+import 'package:fromme/utilities/app_colors.dart';
+import 'package:fromme/utilities/app_textstyles.dart';
 import 'package:provider/provider.dart';
 
 class Emotionbtnblue extends StatefulWidget {
@@ -39,17 +41,15 @@ class _EmotionbtnblueState extends State<Emotionbtnblue> {
                   height: 40.0,
                   width: 180.0,
                   decoration: BoxDecoration(
-                    color: _isSelected0 ? Color(0xffCAE0FF) : Colors.white,
+                    color: _isSelected0
+                        ? AppColor.emotionTilesBlueSelectedColor
+                        : AppColor.emotionTilesUnselectedColor,
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   child: Center(
                     child: Text(
                       moods[0],
-                      style: TextStyle(
-                        fontSize: 25.0,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xff2F80ED),
-                      ),
+                      style: AppTextStyles.emotionTilesBlueStyle(),
                     ),
                   ),
                 ),
@@ -73,17 +73,15 @@ class _EmotionbtnblueState extends State<Emotionbtnblue> {
                   height: 40.0,
                   width: 180.0,
                   decoration: BoxDecoration(
-                    color: _isSelected1 ? Color(0xffCAE0FF) : Colors.white,
+                    color: _isSelected1
+                        ? AppColor.emotionTilesBlueSelectedColor
+                        : AppColor.emotionTilesUnselectedColor,
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   child: Center(
                     child: Text(
                       moods[1],
-                      style: TextStyle(
-                        fontSize: 25.0,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xff2F80ED),
-                      ),
+                      style: AppTextStyles.emotionTilesBlueStyle(),
                     ),
                   ),
                 ),
@@ -107,17 +105,15 @@ class _EmotionbtnblueState extends State<Emotionbtnblue> {
                   height: 40.0,
                   width: 180.0,
                   decoration: BoxDecoration(
-                    color: _isSelected2 ? Color(0xffCAE0FF) : Colors.white,
+                    color: _isSelected2
+                        ? AppColor.emotionTilesBlueSelectedColor
+                        : AppColor.emotionTilesUnselectedColor,
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   child: Center(
                     child: Text(
                       moods[2],
-                      style: TextStyle(
-                        fontSize: 25.0,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xff2F80ED),
-                      ),
+                      style: AppTextStyles.emotionTilesBlueStyle(),
                     ),
                   ),
                 ),
@@ -141,17 +137,15 @@ class _EmotionbtnblueState extends State<Emotionbtnblue> {
                   height: 40.0,
                   width: 180.0,
                   decoration: BoxDecoration(
-                    color: _isSelected3 ? Color(0xffCAE0FF) : Colors.white,
+                    color: _isSelected3
+                        ? AppColor.emotionTilesBlueSelectedColor
+                        : AppColor.emotionTilesUnselectedColor,
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   child: Center(
                     child: Text(
                       moods[3],
-                      style: TextStyle(
-                        fontSize: 25.0,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xff2F80ED),
-                      ),
+                      style: AppTextStyles.emotionTilesBlueStyle(),
                     ),
                   ),
                 ),
@@ -175,17 +169,15 @@ class _EmotionbtnblueState extends State<Emotionbtnblue> {
                   height: 40.0,
                   width: 180.0,
                   decoration: BoxDecoration(
-                    color: _isSelected4 ? Color(0xffCAE0FF) : Colors.white,
+                    color: _isSelected4
+                        ? AppColor.emotionTilesBlueSelectedColor
+                        : AppColor.emotionTilesUnselectedColor,
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   child: Center(
                     child: Text(
                       moods[4],
-                      style: TextStyle(
-                        fontSize: 25.0,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xff2F80ED),
-                      ),
+                      style: AppTextStyles.emotionTilesBlueStyle(),
                     ),
                   ),
                 ),

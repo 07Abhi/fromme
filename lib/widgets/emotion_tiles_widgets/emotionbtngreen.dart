@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fromme/moodpostmanager/moodmanager.dart';
+import 'package:fromme/utilities/app_colors.dart';
+import 'package:fromme/utilities/app_textstyles.dart';
 import 'package:provider/provider.dart';
 
 class Emotionbtngreen extends StatefulWidget {
@@ -47,17 +49,15 @@ class _EmotionbtngreenState extends State<Emotionbtngreen> {
                 height: 40.0,
                 width: 180.0,
                 decoration: BoxDecoration(
-                  color: _isSelected0 ? Color(0xffdeffec) : Colors.white,
+                  color: _isSelected0
+                      ? AppColor.emotionTilesGreenSelectedColor
+                      : AppColor.emotionTilesUnselectedColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Center(
                   child: Text(
                     "Positive",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xff219653),
-                    ),
+                    style: AppTextStyles.emotionTilesGreenStyle(),
                   ),
                 ),
               ),
@@ -82,17 +82,15 @@ class _EmotionbtngreenState extends State<Emotionbtngreen> {
                 height: 40.0,
                 width: 180.0,
                 decoration: BoxDecoration(
-                  color: _isSelected1 ? Color(0xffdeffec) : Colors.white,
+                  color: _isSelected1
+                      ? AppColor.emotionTilesGreenSelectedColor
+                      : AppColor.emotionTilesUnselectedColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Center(
                   child: Text(
                     "Happy",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xff219653),
-                    ),
+                    style: AppTextStyles.emotionTilesGreenStyle(),
                   ),
                 ),
               ),
@@ -117,17 +115,15 @@ class _EmotionbtngreenState extends State<Emotionbtngreen> {
                 height: 40.0,
                 width: 180.0,
                 decoration: BoxDecoration(
-                  color: _isSelected2 ? Color(0xffdeffec) : Colors.white,
+                  color: _isSelected2
+                      ? AppColor.emotionTilesGreenSelectedColor
+                      : AppColor.emotionTilesUnselectedColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Center(
                   child: Text(
                     "Excited",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xff219653),
-                    ),
+                    style: AppTextStyles.emotionTilesGreenStyle(),
                   ),
                 ),
               ),
@@ -152,17 +148,15 @@ class _EmotionbtngreenState extends State<Emotionbtngreen> {
                 height: 40.0,
                 width: 180.0,
                 decoration: BoxDecoration(
-                  color: _isSelected3 ? Color(0xffdeffec) : Colors.white,
+                  color: _isSelected3
+                      ? AppColor.emotionTilesGreenSelectedColor
+                      : AppColor.emotionTilesUnselectedColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Center(
                   child: Text(
                     "Proud",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xff219653),
-                    ),
+                    style: AppTextStyles.emotionTilesGreenStyle(),
                   ),
                 ),
               ),
@@ -187,17 +181,15 @@ class _EmotionbtngreenState extends State<Emotionbtngreen> {
                 height: 40.0,
                 width: 180.0,
                 decoration: BoxDecoration(
-                  color: _isSelected4 ? Color(0xffdeffec) : Colors.white,
+                  color: _isSelected4
+                      ? AppColor.emotionTilesGreenSelectedColor
+                      : AppColor.emotionTilesUnselectedColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Center(
                   child: Text(
                     "Determined",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xff219653),
-                    ),
+                    style: AppTextStyles.emotionTilesGreenStyle(),
                   ),
                 ),
               ),
@@ -222,17 +214,15 @@ class _EmotionbtngreenState extends State<Emotionbtngreen> {
                 height: 40.0,
                 width: 180.0,
                 decoration: BoxDecoration(
-                  color: _isSelected5 ? Color(0xffdeffec) : Colors.white,
+                  color: _isSelected5
+                      ? AppColor.emotionTilesGreenSelectedColor
+                      : AppColor.emotionTilesUnselectedColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Center(
                   child: Text(
                     "Inspired",
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xff219653),
-                    ),
+                    style: AppTextStyles.emotionTilesGreenStyle(),
                   ),
                 ),
               ),

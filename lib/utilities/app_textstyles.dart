@@ -80,4 +80,36 @@ class AppTextStyles {
       color: AppColor.bottomsecondHighlightColor,
     );
   }
+
+  static TextStyle emotionTilesBlueStyle() {
+    return TextStyle(
+      fontSize: 25.0,
+      fontWeight: FontWeight.w700,
+      color: AppColor.emotionTilesBlueColor,
+    );
+  }
+
+  static TextStyle emotionTilesGreenStyle() {
+    return TextStyle(
+      fontSize: 25.0,
+      fontWeight: FontWeight.w700,
+      color: AppColor.emotionTilesGreenColor,
+    );
+  }
+
+  static TextStyle emotionTilesRedStyle() {
+    return TextStyle(
+      fontSize: 25.0,
+      fontWeight: FontWeight.w700,
+      color: AppColor.emotionTilesRedColor,
+    );
+  }
+
+  static TextStyle emotionTilesYelowStyle() {
+    return TextStyle(
+      fontSize: 25.0,
+      fontWeight: FontWeight.w700,
+      color: AppColor.emotionTilesYellowColor,
+    );
+  }
 }
