@@ -5,6 +5,7 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:fromme/pages/loginpages/forgetpasswordpage.dart';
 import 'package:fromme/pages/loginpages/signuppage.dart';
 import 'package:fromme/pages/navigation_pages/homepage.dart';
+import 'package:fromme/utilities/regexp_checker/app_regexp.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -84,18 +85,6 @@ Route _forgetPasswordPageAnimation() {
       );
     },
   );
-}
-
-bool _emailAddCheck(String data) {
-  RegExp pattern = new RegExp(
-      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-  return pattern.hasMatch(data);
-}
-
-bool _passCheck(String data) {
-  RegExp pattern = new RegExp(
-      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
-  return pattern.hasMatch(data);
 }
 
 class _LoginPageState extends State<LoginPage> {
@@ -253,7 +242,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             validator: (val) => val.isEmpty
                                 ? "Required"
-                                : _emailAddCheck(val)
+                                : RegExpsTester.emailAddCheck(val)
                                     ? null
                                     : "Error",
                           ),
@@ -290,7 +279,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 validator: (val) => val.isEmpty
                                     ? "Required"
-                                    : _passCheck(val)
+                                    : RegExpsTester.passCheck(val)
                                         ? null
                                         : "Error",
                               ),

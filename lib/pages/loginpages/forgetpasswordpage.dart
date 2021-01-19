@@ -1,18 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fromme/utilities/regexp_checker/app_regexp.dart';
 import 'package:toast/toast.dart';
 
 class ForgetPasswordPage extends StatefulWidget {
   static const String id = "/forgetpass";
   @override
   _ForgetPasswordPageState createState() => _ForgetPasswordPageState();
-}
-
-bool _emailAddCheck(String data) {
-  RegExp pattern = new RegExp(
-      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-  return pattern.hasMatch(data);
 }
 
 class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
@@ -111,7 +106,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                   ),
                   validator: (val) => val.isEmpty
                       ? "Required"
-                      : _emailAddCheck(val)
+                      : RegExpsTester.emailAddCheck(val)
                           ? null
                           : "Enter Correct Mail",
                 ),

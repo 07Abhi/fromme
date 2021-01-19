@@ -499,7 +499,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     child: GestureDetector(
                       onTap: () async {
                         if (_formKey.currentState.validate()) {
-                          print('Here comes teh data Id $dataId');
+                          print('Here comes the data Id $dataId');
                           _firestore
                               .collection('userdata')
                               .doc(_auth.currentUser.uid)

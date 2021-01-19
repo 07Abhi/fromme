@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fromme/backend_services/login_database.dart';
+import 'package:fromme/utilities/app_colors.dart';
+import 'package:fromme/utilities/app_constant_widgets.dart';
+import 'package:fromme/utilities/app_textstyles.dart';
 import 'package:fromme/utilities/regexp_checker/app_regexp.dart';
-
-import 'package:toast/toast.dart';
 
 class SignUpPage extends StatefulWidget {
   static const String id = "/signUpPage";
@@ -16,7 +17,6 @@ class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
 
   FirebaseAuth _authSignUp = FirebaseAuth.instance;
-  final _firestore = FirebaseFirestore.instance;
   TextEditingController _nameController = new TextEditingController();
   TextEditingController _mobileController = new TextEditingController();
   TextEditingController _emailController = new TextEditingController();
@@ -24,12 +24,15 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _confpassController = new TextEditingController();
   bool _tncCheck = false;
   bool _hidePassword = true;
+
+  //Obsecure password
   void _showPass() {
     setState(() {
       _hidePassword = !_hidePassword;
     });
   }
 
+  //For changing the checkBox
   void _checkbox(bool data) {
     setState(() {
       _tncCheck = data;
@@ -39,33 +42,8 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60.0),
-        child: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0.0,
-          shadowColor: Colors.white,
-          leading: IconButton(
-            icon: Icon(
-              Icons.keyboard_backspace,
-              size: 40.0,
-              color: Colors.black87,
-            ),
-            onPressed: () => Navigator.pop(context),
-          ),
-          title: Text(
-            "FromMe",
-            style: TextStyle(
-              fontSize: 50.0,
-              fontWeight: FontWeight.w600,
-              color: Colors.cyan,
-              fontFamily: "LovedByTheKing",
-            ),
-          ),
-          centerTitle: true,
-        ),
-      ),
+      backgroundColor: AppColor.scaffoldColor,
+      appBar: AppConstantsWidgets.fixedAppBar(context),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
@@ -77,10 +55,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     padding: const EdgeInsets.symmetric(vertical: 15.0),
                     child: Text(
                       "SignUp",
-                      style: TextStyle(
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.black87),
+                      style: AppTextStyles.appPagesHeading(),
                     ),
                   ),
                   Form(
@@ -100,25 +75,14 @@ class _SignUpPageState extends State<SignUpPage> {
                                 null,
                             keyboardType: TextInputType.text,
                             textCapitalization: TextCapitalization.words,
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              color: Colors.grey.shade400,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            decoration: InputDecoration(
-                              focusColor: Colors.grey.shade400,
-                              labelText: "Name*",
-                              labelStyle: TextStyle(
-                                color: Colors.cyan,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
+                            style: AppTextStyles.logonformTextStyle(),
+                            decoration:
+                                AppTextStyles.textFieldDecoration("Name"),
                             validator: (val) => val.isEmpty
                                 ? "Required"
                                 : RegExpsTester.nameCheck(val)
                                     ? null
-                                    : "Error",
+                                    : "Incorrect Format",
                           ),
                         ),
                         Padding(
@@ -133,25 +97,14 @@ class _SignUpPageState extends State<SignUpPage> {
                                     bool isFocused}) =>
                                 null,
                             keyboardType: TextInputType.phone,
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              color: Colors.grey.shade400,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            decoration: InputDecoration(
-                              focusColor: Colors.grey.shade400,
-                              labelText: "Mobile*",
-                              labelStyle: TextStyle(
-                                color: Colors.cyan,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
+                            style: AppTextStyles.logonformTextStyle(),
+                            decoration:
+                                AppTextStyles.textFieldDecoration("Mobile"),
                             validator: (val) => val.isEmpty
                                 ? "Required"
                                 : RegExpsTester.mobileCheck(val)
                                     ? null
-                                    : "Error",
+                                    : "Incorrect Phone Number",
                           ),
                         ),
                         Padding(
@@ -166,25 +119,14 @@ class _SignUpPageState extends State<SignUpPage> {
                                     bool isFocused}) =>
                                 null,
                             keyboardType: TextInputType.emailAddress,
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              color: Colors.grey.shade400,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            decoration: InputDecoration(
-                              focusColor: Colors.grey.shade400,
-                              labelText: "Email*",
-                              labelStyle: TextStyle(
-                                color: Colors.cyan,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
+                            style: AppTextStyles.logonformTextStyle(),
+                            decoration:
+                                AppTextStyles.textFieldDecoration('Email'),
                             validator: (val) => val.isEmpty
                                 ? "Required"
                                 : RegExpsTester.emailAddCheck(val)
                                     ? null
-                                    : "Error",
+                                    : "Wrong email format",
                           ),
                         ),
                         Padding(
@@ -204,25 +146,14 @@ class _SignUpPageState extends State<SignUpPage> {
                                 keyboardType: TextInputType.text,
                                 obscuringCharacter: "*",
                                 obscureText: _hidePassword,
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: Colors.grey.shade400,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                decoration: InputDecoration(
-                                  focusColor: Colors.grey.shade400,
-                                  labelText: "Password",
-                                  labelStyle: TextStyle(
-                                    color: Colors.cyan,
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
+                                style: AppTextStyles.logonformTextStyle(),
+                                decoration: AppTextStyles.textFieldDecoration(
+                                    'Password'),
                                 validator: (val) => val.isEmpty
                                     ? "Required"
                                     : RegExpsTester.passCheck(val)
                                         ? null
-                                        : "Error",
+                                        : "One Capital Character, Numeral and length above 8",
                               ),
                               Positioned(
                                 right: 1.0,
@@ -255,25 +186,14 @@ class _SignUpPageState extends State<SignUpPage> {
                             obscuringCharacter: "*",
                             obscureText: true,
                             keyboardType: TextInputType.text,
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              color: Colors.grey.shade400,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            decoration: InputDecoration(
-                              focusColor: Colors.grey.shade400,
-                              labelText: "Confirm Password*",
-                              labelStyle: TextStyle(
-                                color: Colors.cyan,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
+                            style: AppTextStyles.logonformTextStyle(),
+                            decoration: AppTextStyles.textFieldDecoration(
+                                'Confirm Password'),
                             validator: (val) => val.isEmpty
                                 ? "Required"
                                 : RegExpsTester.passCheck(val)
                                     ? null
-                                    : "Error",
+                                    : "One Capital Character, Numeral and length above 8",
                           ),
                         ),
                       ],
@@ -287,7 +207,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     children: [
                       Checkbox(
                         onChanged: _checkbox,
-                        activeColor: Colors.cyan.shade300,
+                        activeColor: AppColor.checkBoxActiveColor,
                         value: _tncCheck,
                       ),
                       RichText(
@@ -295,18 +215,11 @@ class _SignUpPageState extends State<SignUpPage> {
                           children: [
                             TextSpan(
                               text: "I agree to ",
-                              style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black87),
+                              style: AppTextStyles.appTandCTextStyles(),
                             ),
                             TextSpan(
                               text: "Terms & Conditions",
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.cyan.shade500,
-                              ),
+                              style: AppTextStyles.bottomInfoTextStyle(),
                             ),
                           ],
                         ),
@@ -329,27 +242,18 @@ class _SignUpPageState extends State<SignUpPage> {
                                 try {
                                   SystemChannels.textInput
                                       .invokeMethod('TextInput.hide');
-
-                                  final registerUser = await _authSignUp
-                                      .createUserWithEmailAndPassword(
+                                  final registerUser =
+                                      BackendDBservices.createNewUser(
                                           email: _emailController.text,
-                                          password: _confpassController.text);
-
+                                          password: _passController.text);
                                   if (registerUser != null) {
                                     try {
-                                      await _firestore
-                                          .collection('userdata')
-                                          .doc(_authSignUp.currentUser.uid)
-                                          .set({
-                                        "name": _nameController.text,
-                                        "mobile": _mobileController.text,
-                                        "email": _emailController.text,
-                                        "photoUrl": null,
-                                        "address": null,
-                                        "availableStatus": null,
-                                        "gender": null,
-                                        "dob": null,
-                                      });
+                                      await BackendDBservices.saveSignUpData(
+                                        uid: _authSignUp.currentUser.uid,
+                                        name: _nameController.text,
+                                        mobile: _mobileController.text,
+                                        email: _emailController.text,
+                                      );
                                       _nameController.clear();
                                       _mobileController.clear();
                                       _emailController.clear();
@@ -357,53 +261,34 @@ class _SignUpPageState extends State<SignUpPage> {
                                       _confpassController.clear();
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
-                                        SnackBar(
-                                          content:
-                                              Text("SignUp successfully!!"),
-                                          backgroundColor: Colors.cyan.shade300,
-                                          duration: Duration(seconds: 2),
-                                        ),
+                                        AppConstantsWidgets.appGeneralSanckbar(
+                                            message: "Sign Up Succesfully!!!"),
                                       );
                                       Navigator.pop(context);
                                     } catch (e) {
-                                      print("Enable to register the user!!!");
+                                      AppConstantsWidgets.appToastDisplay(
+                                          context,
+                                          info: "Unable to register user");
                                     }
                                   }
                                 } catch (e) {
-                                  print("Enable to login from catch side");
-                                  Toast.show("Some error Occurred!!!!", context,
-                                      duration: Toast.LENGTH_LONG,
-                                      gravity: Toast.BOTTOM,
-                                      backgroundColor:
-                                          Theme.of(context).primaryColor,
-                                      textColor: Colors.white);
+                                  AppConstantsWidgets.appToastDisplay(context,
+                                      info: "Some error ocurred");
                                 }
                               } else {
-                                Toast.show("Agree Term and Conditions", context,
-                                    duration: Toast.LENGTH_LONG,
-                                    gravity: Toast.BOTTOM,
-                                    backgroundColor:
-                                        Theme.of(context).primaryColor,
-                                    textColor: Colors.white);
+                                AppConstantsWidgets.appToastDisplay(context,
+                                    info: "Accept terms & conditions");
                               }
                             } else {
-                              Toast.show("Password not matching", context,
-                                  duration: Toast.LENGTH_LONG,
-                                  gravity: Toast.BOTTOM,
-                                  backgroundColor:
-                                      Theme.of(context).primaryColor,
-                                  textColor: Colors.white);
+                              AppConstantsWidgets.appToastDisplay(context,
+                                  info: "Password not matching!!");
                             }
                           }
                         },
-                        color: Colors.cyan.shade400,
+                        color: AppColor.appLoginButtons,
                         child: Text(
                           "Sign Up",
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
+                          style: AppTextStyles.btnTextStyle(),
                         ),
                       ),
                     ),
@@ -416,21 +301,13 @@ class _SignUpPageState extends State<SignUpPage> {
                     children: [
                       Text(
                         "Already Registered",
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
-                        ),
+                        style: AppTextStyles.bottomSecondTextStyle(),
                       ),
                       GestureDetector(
                         onTap: () => Navigator.pop(context),
                         child: Text(
                           " Click Here",
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.cyan.shade400,
-                          ),
+                          style: AppTextStyles.bottomSecondHighlightTextStyle(),
                         ),
                       )
                     ],
