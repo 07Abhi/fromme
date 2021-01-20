@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:toast/toast.dart';
+import 'package:fromme/backend_services/login_database.dart';
+import 'package:fromme/utilities/app_constant_widgets.dart';
+import 'package:fromme/utilities/app_textstyles.dart';
 
 class ChangeNumber extends StatefulWidget {
   static const String id = "/changeNumber";
@@ -14,59 +16,11 @@ class ChangeNumber extends StatefulWidget {
 class _ChangeNumberState extends State<ChangeNumber> {
   TextEditingController _mobileController = new TextEditingController();
   FirebaseAuth _auth = FirebaseAuth.instance;
-  FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70.0),
-        child: AppBar(
-          elevation: 0.0,
-          shadowColor: Colors.white,
-          title: Text(
-            "FromMe",
-            style: TextStyle(
-              fontSize: 35.0,
-              fontWeight: FontWeight.w600,
-              color: Colors.cyan.shade400,
-              fontFamily: "LovedByTheKing",
-              shadows: [
-                Shadow(
-                  offset: Offset(0, 3.0),
-                  blurRadius: 2.0,
-                  color: Colors.grey.shade400,
-                )
-              ],
-            ),
-          ),
-          centerTitle: true,
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xff41b1c0),
-                  Colors.white,
-                ],
-                stops: [
-                  0.1,
-                  0.8,
-                ],
-              ),
-            ),
-          ),
-          leading: IconButton(
-            icon: Icon(
-              Icons.keyboard_backspace,
-              size: 40.0,
-              color: Color(0xff2DC4D9),
-            ),
-            onPressed: () => Navigator.pop(context),
-          ),
-        ),
-      ),
+      appBar: AppConstantsWidgets.fixedAppBarWithGradient(context),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -74,12 +28,8 @@ class _ChangeNumberState extends State<ChangeNumber> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Change Registered Number',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 25.0,
-                  fontWeight: FontWeight.w800,
-                ),
+                'Update Mobile No.',
+                style: AppTextStyles.settingPageHeadingStyle(),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 15.0),
@@ -90,28 +40,8 @@ class _ChangeNumberState extends State<ChangeNumber> {
                   buildCounter: (BuildContext context,
                           {int currentLength, int maxLength, bool isFocused}) =>
                       null,
-                  decoration: InputDecoration(
-                    hintText: "Mobile Number!!",
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 1.5,
-                        color: Colors.grey.shade500,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 1.5,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                    prefixIcon: Icon(Icons.phone),
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.clear),
-                      onPressed: () {
-                        _mobileController.clear();
-                      },
-                    ),
-                  ),
+                  decoration: AppTextStyles.settingChangeMobileDecoration(
+                      context, _mobileController, "Mobile No."),
                 ),
               ),
               Align(
@@ -124,41 +54,22 @@ class _ChangeNumberState extends State<ChangeNumber> {
                     child: FlatButton(
                       child: Text(
                         "Submit",
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                        ),
+                        style: AppTextStyles.btnTextStyle(),
                       ),
                       color: Theme.of(context).primaryColor,
                       onPressed: () async {
                         try {
-                          await _firebaseFirestore
-                              .collection("userdata")
-                              .doc(_auth.currentUser.uid)
-                              .update({
-                            "mobile": _mobileController.text,
-                          });
+                          await BackendDBservices.updateUserMobileNumber(
+                              _mobileController.text,
+                              uid: _auth.currentUser.uid);
                           SystemChannels.textInput
                               .invokeMethod("TextInput.hide");
                           _mobileController.clear();
-                          Toast.show(
-                            "Chnage Request Sent!!",
-                            context,
-                            duration: 2,
-                            gravity: Toast.BOTTOM,
-                            backgroundColor: Theme.of(context).primaryColor,
-                            textColor: Colors.white,
-                          );
+                          AppConstantsWidgets.appToastDisplay(context,
+                              info: "Change Request Sent");
                         } catch (e) {
-                          Toast.show(
-                            e.message,
-                            context,
-                            duration: 2,
-                            gravity: Toast.BOTTOM,
-                            backgroundColor: Theme.of(context).primaryColor,
-                            textColor: Colors.white,
-                          );
+                          AppConstantsWidgets.appToastDisplay(context,
+                              info: e.message);
                         }
                       },
                     ),

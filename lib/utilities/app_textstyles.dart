@@ -11,6 +11,7 @@ class AppTextStyles {
     );
   }
 
+  //login registration and forget password textfirld decoration.
   static InputDecoration textFieldDecoration(String name) {
     return InputDecoration(
       focusColor: Colors.grey.shade400,
@@ -19,6 +20,33 @@ class AppTextStyles {
         color: AppColor.textFieldLabelColor,
         fontSize: 20.0,
         fontWeight: FontWeight.w700,
+      ),
+    );
+  }
+
+  //change mobile number textfield decoration
+  static settingChangeMobileDecoration(BuildContext context,
+      TextEditingController mobileController, String hint) {
+    return InputDecoration(
+      hintText: hint,
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          width: 1.5,
+          color: Colors.grey.shade500,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          width: 1.5,
+          color: Theme.of(context).primaryColor,
+        ),
+      ),
+      prefixIcon: Icon(Icons.phone),
+      suffixIcon: IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          mobileController.clear();
+        },
       ),
     );
   }
@@ -179,6 +207,136 @@ class AppTextStyles {
       fontSize: 16.0,
       fontWeight: FontWeight.w600,
       color: AppColor.forgetpassInformationColor,
+    );
+  }
+
+  static TextStyle appBarTitleStyle2() {
+    return TextStyle(
+      fontSize: 35.0,
+      fontWeight: FontWeight.w600,
+      color: AppColor.appBarHeadingColor,
+      fontFamily: "LovedByTheKing",
+      shadows: [
+        Shadow(
+          offset: Offset(0, 3.0),
+          blurRadius: 2.0,
+          color: AppColor.appBarShadowColor,
+        )
+      ],
+    );
+  }
+
+  static TextStyle homeBookmarkTitleStyle() {
+    return TextStyle(
+      fontSize: 26.0,
+      fontWeight: FontWeight.w800,
+      color: AppColor.homeBookmarkTitleColor,
+    );
+  }
+
+  static TextStyle timelinePageNameStyle() {
+    return TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.w900,
+      color: AppColor.timelinePageNameColor,
+    );
+  }
+
+  static TextStyle timelinePageTimeStampStyle() {
+    return TextStyle(
+      fontSize: 14.0,
+      fontWeight: FontWeight.w500,
+      color: AppColor.timelinePageTimeColor,
+    );
+  }
+
+  static TextStyle timelinePageEmotionStyle() {
+    return TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.w900,
+      color: AppColor.timelinePageEmotionColor,
+    );
+  }
+
+  static TextStyle timelinePagePostMessageStyle() {
+    return TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  static TextStyle settingPageHeadingStyle() {
+    return TextStyle(
+      color: Colors.black,
+      fontSize: 25.0,
+      fontWeight: FontWeight.w800,
+    );
+  }
+
+  static TextStyle settingPageInfoStyle() {
+    return TextStyle(
+      fontSize: 16.0,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  static TextStyle faqQuestionTextStyle() {
+    return TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.w600,
+      color: AppColor.faqQuestionColor,
+    );
+  }
+
+  static TextStyle faqAnswerTextStyle() {
+    return TextStyle(
+      fontSize: 14.0,
+      fontWeight: FontWeight.w600,
+      color: AppColor.faqQuestionColor,
+    );
+  }
+
+  static TextStyle settingNotificationLableStyle() {
+    return TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.w500,
+    );
+  }
+
+  static TextStyle uploadImageTextStyle() {
+    return TextStyle(
+      fontSize: 18.0,
+      color: AppColor.uploadImageTextColor,
+    );
+  }
+
+  static TextStyle editProfileHeadingStyle() {
+    return TextStyle(
+      fontSize: 26.0,
+      fontWeight: FontWeight.w800,
+      color: AppColor.primaryColor,
+    );
+  }
+
+  static TextStyle editGenderLableStyle() {
+    return TextStyle(
+        fontSize: 22.0,
+        fontWeight: FontWeight.w700,
+        color: AppColor.primaryColor);
+  }
+
+  static TextStyle editProfileRadioStyle() {
+    return TextStyle(
+      fontSize: 16.0,
+      fontWeight: FontWeight.w600,
+      color: AppColor.editProfileRadioLableColor,
+    );
+  }
+
+  static TextStyle settingPageStyle() {
+    return TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.w600,
     );
   }
 }

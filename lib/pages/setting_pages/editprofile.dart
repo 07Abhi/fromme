@@ -1,17 +1,20 @@
 import 'dart:io';
+import 'package:fromme/backend_services/login_database.dart';
 import 'package:fromme/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fromme/utilities/app_colors.dart';
+import 'package:fromme/utilities/app_constant_strings.dart';
+import 'package:fromme/utilities/app_constant_widgets.dart';
+import 'package:fromme/utilities/app_textstyles.dart';
+import 'package:fromme/utilities/regexp_checker/app_regexp.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:toast/toast.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class EditProfilePage extends StatefulWidget {
   static const String id = "/editprofile";
-  String profileId;
-  EditProfilePage({this.profileId});
 
   @override
   _EditProfilePageState createState() => _EditProfilePageState();
@@ -36,27 +39,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   bool isImage = false;
   // final _firebaseUser = FirebaseAuth.instance;
 
-  bool _nameChecker(String data) {
-    RegExp pattern = new RegExp(r'[a-zA-z ]{4,25}');
-    return pattern.hasMatch(data);
-  }
-
-  bool _emailAddCheck(String data) {
-    RegExp pattern = new RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-    return pattern.hasMatch(data);
-  }
-
-  bool _dobChecker(String data) {
-    RegExp pattern = new RegExp(r'[0-9/-]{8,}');
-    return pattern.hasMatch(data);
-  }
-
-  bool _addressChecker(String data) {
-    RegExp pattern = new RegExp(r'[0-9a-zA-Z ,/-]{15,50}');
-    return pattern.hasMatch(data);
-  }
-
   Future<void> uploadImage(BuildContext context) async {
     File image;
     showDialog(
@@ -66,7 +48,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
         children: [
           RaisedButton(
             onPressed: () async {
-              print("user's uid: ${_auth.currentUser.uid}");
               PickedFile pickImage =
                   await ImagePicker().getImage(source: ImageSource.gallery);
               image = File(pickImage.path);
@@ -76,25 +57,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
               final uploadTask = reference.putFile(image);
               uploadTask.whenComplete(() async {
                 imageUrl = await reference.getDownloadURL();
-                print(imageUrl);
               });
               setState(() {
                 isImage = true;
                 pickFile = image;
               });
-              Toast.show(
-                "Image Uploaded",
-                context,
-                duration: 3,
-                gravity: Toast.BOTTOM,
-                backgroundColor: Theme.of(context).primaryColor,
-                textColor: Colors.white,
-              );
+              AppConstantsWidgets.appToastDisplay(context,
+                  info: "Image Uploaded Successfuly");
             },
-            color: Theme.of(context).primaryColor,
+            color: AppColor.uploadImageConatinerColor,
             child: Text(
               "Choose from gallery",
-              style: TextStyle(fontSize: 18.0, color: Colors.white),
+              style: AppTextStyles.uploadImageTextStyle(),
             ),
           ),
           RaisedButton(
@@ -104,29 +78,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
               image = File(pickImage.path);
               Navigator.of(context).pop();
               final reference =
-                  _storage.ref().child('${_auth.currentUser.displayName}/');
+                  _storage.ref().child('${_auth.currentUser.uid}/');
               final uploadTask = reference.putFile(image);
               uploadTask.whenComplete(() async {
                 imageUrl = await reference.getDownloadURL();
-                print(imageUrl);
               });
               setState(() {
                 isImage = true;
                 pickFile = image;
               });
-              Toast.show(
-                "Image Uploaded",
-                context,
-                duration: 3,
-                gravity: Toast.BOTTOM,
-                backgroundColor: Theme.of(context).primaryColor,
-                textColor: Colors.white,
-              );
+              AppConstantsWidgets.appToastDisplay(context,
+                  info: "Image Uploaded Successfuly");
             },
-            color: Theme.of(context).primaryColor,
+            color: AppColor.uploadImageConatinerColor,
             child: Text(
               "Camera",
-              style: TextStyle(fontSize: 18.0, color: Colors.white),
+              style: AppTextStyles.uploadImageTextStyle(),
             ),
           ),
         ],
@@ -153,7 +120,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
       _emailController.text = "";
       _addressController.text = "";
     }
-
     setState(() {
       isLoading = false;
     });
@@ -172,58 +138,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
         SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.white));
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70.0),
-        child: AppBar(
-          elevation: 0.0,
-          shadowColor: Colors.white,
-          title: Text(
-            "FromMe",
-            style: TextStyle(
-              fontSize: 35.0,
-              fontWeight: FontWeight.w600,
-              color: Colors.cyan.shade400,
-              fontFamily: "LovedByTheKing",
-              shadows: [
-                Shadow(
-                  offset: Offset(0, 3.0),
-                  blurRadius: 2.0,
-                  color: Colors.grey.shade400,
-                )
-              ],
-            ),
-          ),
-          centerTitle: true,
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xff41b1c0),
-                  Colors.white,
-                ],
-                stops: [
-                  0.1,
-                  0.8,
-                ],
-              ),
-            ),
-          ),
-          leading: IconButton(
-            icon: Icon(
-              Icons.keyboard_backspace,
-              size: 40.0,
-              color: Color(0xff2DC4D9),
-            ),
-            onPressed: () => Navigator.pop(context),
-          ),
-        ),
-      ),
+      appBar: AppConstantsWidgets.fixedAppBarWithGradient(context),
       body: isLoading
           ? Center(
               child: CircularProgressIndicator(
-                backgroundColor: Colors.white54,
+                backgroundColor: AppColor.circularProgressIndiColor,
                 strokeWidth: 5.0,
               ),
             )
@@ -251,8 +170,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   radius: 40.0,
                                   backgroundImage: isImage
                                       ? FileImage(pickFile)
-                                      : NetworkImage(
-                                          'https://cdn2.iconfinder.com/data/icons/image-editing-6/1000/Image_Edit-14-512.png'),
+                                      : NetworkImage(AppConstantString
+                                          .editProfilePhotoUrl),
                                 ),
                               ),
                               SizedBox(
@@ -265,11 +184,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           ),
                           Text(
                             'Edit Profile',
-                            style: TextStyle(
-                              fontSize: 26.0,
-                              fontWeight: FontWeight.w800,
-                              color: Theme.of(context).primaryColor,
-                            ),
+                            style: AppTextStyles.editProfileHeadingStyle(),
                           ),
                         ],
                       ),
@@ -302,23 +217,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                         int maxLength,
                                         bool isFocused}) =>
                                     null,
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  color: Colors.grey.shade400,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                decoration: InputDecoration(
-                                  focusColor: Colors.grey.shade400,
-                                  labelText: "Name",
-                                  labelStyle: TextStyle(
-                                    color: Colors.cyan,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
+                                style: AppTextStyles.loginOptionTextStyle(),
+                                decoration:
+                                    AppTextStyles.textFieldDecoration('Name'),
                                 validator: (val) => val.isEmpty
                                     ? "Required"
-                                    : _nameChecker(val)
+                                    : RegExpsTester.nameCheck(val)
                                         ? null
                                         : "Error",
                               ),
@@ -327,7 +231,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 child: Icon(
                                   Icons.person_outline,
                                   size: 40.0,
-                                  color: Color(0XFFAAAAAA),
+                                  color: AppColor.editFieldIconColor,
                                 ),
                               ),
                             ],
@@ -343,10 +247,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 children: [
                                   Text(
                                     "Gender",
-                                    style: TextStyle(
-                                        fontSize: 22.0,
-                                        fontWeight: FontWeight.w700,
-                                        color: Theme.of(context).primaryColor),
+                                    style: AppTextStyles.editGenderLableStyle(),
                                   ),
                                   RadioTile()
                                 ],
@@ -367,23 +268,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           int maxLength,
                                           bool isFocused}) =>
                                       null,
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    color: Colors.grey.shade400,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.grey.shade400,
-                                    labelText: "Email Address",
-                                    labelStyle: TextStyle(
-                                      color: Colors.cyan,
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
+                                  style: AppTextStyles.logonformTextStyle(),
+                                  decoration: AppTextStyles.textFieldDecoration(
+                                      "Email"),
                                   validator: (val) => val.isEmpty
                                       ? "Required"
-                                      : _emailAddCheck(val)
+                                      : RegExpsTester.emailAddCheck(val)
                                           ? null
                                           : "Error",
                                 ),
@@ -392,7 +282,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   child: Icon(
                                     Icons.mail_outline,
                                     size: 40.0,
-                                    color: Color(0XFFAAAAAA),
+                                    color: AppColor.editFieldIconColor,
                                   ),
                                 ),
                               ],
@@ -412,23 +302,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           int maxLength,
                                           bool isFocused}) =>
                                       null,
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    color: Colors.grey.shade400,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.grey.shade400,
-                                    labelText: "Date of Birth",
-                                    labelStyle: TextStyle(
-                                      color: Colors.cyan,
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
+                                  style: AppTextStyles.logonformTextStyle(),
+                                  decoration: AppTextStyles.textFieldDecoration(
+                                      "Date of birth"),
                                   validator: (val) => val.isEmpty
                                       ? "Required"
-                                      : _dobChecker(val)
+                                      : RegExpsTester.dobChecker(val)
                                           ? null
                                           : "Error",
                                 ),
@@ -437,7 +316,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   child: Icon(
                                     Icons.calendar_today_outlined,
                                     size: 40.0,
-                                    color: Color(0XFFAAAAAA),
+                                    color: AppColor.editFieldIconColor,
                                   ),
                                 ),
                               ],
@@ -458,23 +337,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           int maxLength,
                                           bool isFocused}) =>
                                       null,
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    color: Colors.grey.shade400,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                  decoration: InputDecoration(
-                                    focusColor: Colors.grey.shade400,
-                                    labelText: "Address",
-                                    labelStyle: TextStyle(
-                                      color: Colors.cyan,
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
+                                  style: AppTextStyles.logonformTextStyle(),
+                                  decoration: AppTextStyles.textFieldDecoration(
+                                      "Address"),
                                   validator: (val) => val.isEmpty
                                       ? "Required"
-                                      : _addressChecker(val)
+                                      : RegExpsTester.addressChecker(val)
                                           ? null
                                           : "Error",
                                 ),
@@ -483,7 +351,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   child: Icon(
                                     Icons.location_on_outlined,
                                     size: 40.0,
-                                    color: Color(0XFFAAAAAA),
+                                    color: AppColor.editFieldIconColor,
                                   ),
                                 ),
                               ],
@@ -499,60 +367,42 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     child: GestureDetector(
                       onTap: () async {
                         if (_formKey.currentState.validate()) {
-                          print('Here comes the data Id $dataId');
-                          _firestore
-                              .collection('userdata')
-                              .doc(_auth.currentUser.uid)
-                              .update({
-                            'name': _nameController.text,
-                            'gender': gender,
-                            'address': _addressController.text,
-                            'dob': _dobController.text,
-                            'availableStatus': true,
-                            'photoUrl': imageUrl,
-                            'uid': _auth.currentUser.uid
-                          }).then((value) {
+                          try {
+                            BackendDBservices.saveEditProfileChanges(
+                              name: _nameController.text,
+                              gender: gender,
+                              address: _addressController.text,
+                              dob: _dobController.text,
+                              availableStatus: true,
+                              photoUrl: imageUrl,
+                              uid: _auth.currentUser.uid,
+                            );
                             _nameController.clear();
                             _emailController.clear();
                             _dobController.clear();
                             _addressController.clear();
-                            Toast.show(
-                              "Profile Updated Successfully",
-                              context,
-                              duration: 2,
-                              gravity: Toast.BOTTOM,
-                              backgroundColor: Theme.of(context).primaryColor,
-                              textColor: Colors.white,
-                            );
+                            AppConstantsWidgets.appToastDisplay(context,
+                                info: "Profile Updated Succesfully!");
+
                             if (onRefreshProfile != null) {
                               onRefreshProfile();
                             }
-                          }).catchError((error) {
-                            Toast.show(
-                              'error is occurred',
-                              context,
-                              duration: 2,
-                              gravity: Toast.BOTTOM,
-                              backgroundColor: Theme.of(context).primaryColor,
-                              textColor: Colors.white,
-                            );
-                          });
+                          } catch (e) {
+                            AppConstantsWidgets.appToastDisplay(context,
+                                info: e.message);
+                          }
                         }
                       },
                       child: Container(
                         height: 50.0,
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
+                            color: AppColor.primaryColor,
                             borderRadius: BorderRadius.circular(10.0)),
                         child: Center(
                           child: Text(
                             "Update",
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                            ),
+                            style: AppTextStyles.btnTextStyle(),
                           ),
                         ),
                       ),
@@ -571,80 +421,36 @@ class RadioTile extends StatefulWidget {
 }
 
 class _RadioTileState extends State<RadioTile> {
+  selectRadioOption(String val, String label) {
+    return Row(
+      children: [
+        Radio(
+          value: val,
+          groupValue: gender,
+          onChanged: (String val) {
+            setState(() {
+              gender = val;
+            });
+          },
+          activeColor: AppColor.primaryColor,
+          splashRadius: 10.0,
+        ),
+        Text(
+          label,
+          style: AppTextStyles.editProfileRadioStyle(),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Row(
-          children: [
-            Radio(
-              value: "Male",
-              groupValue: gender,
-              onChanged: (String val) {
-                setState(() {
-                  gender = val;
-                });
-              },
-              activeColor: Theme.of(context).primaryColor,
-              splashRadius: 10.0,
-            ),
-            Text(
-              "Male",
-              style: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.w600,
-                color: Color(0xffAAAAAA),
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Radio(
-              value: "Female",
-              groupValue: gender,
-              onChanged: (String val) {
-                setState(() {
-                  gender = val;
-                });
-              },
-              activeColor: Theme.of(context).primaryColor,
-              splashRadius: 10.0,
-            ),
-            Text(
-              "Female",
-              style: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.w600,
-                color: Color(0xffAAAAAA),
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Radio(
-              value: "Others",
-              groupValue: gender,
-              onChanged: (String val) {
-                setState(() {
-                  gender = val;
-                });
-              },
-              activeColor: Theme.of(context).primaryColor,
-              splashRadius: 10.0,
-            ),
-            Text(
-              "Others",
-              style: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.w600,
-                color: Color(0xffAAAAAA),
-              ),
-            ),
-          ],
-        )
+        selectRadioOption("Male", "Male"),
+        selectRadioOption("Female", "Famale"),
+        selectRadioOption("Others", "Others"),
       ],
     );
   }

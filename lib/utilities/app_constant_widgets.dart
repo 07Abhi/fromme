@@ -31,6 +31,46 @@ class AppConstantsWidgets {
     );
   }
 
+//App bar second types along with gradient
+  static fixedAppBarWithGradient(BuildContext context) {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(70.0),
+      child: AppBar(
+        elevation: 0.0,
+        shadowColor: Colors.white,
+        title: Text(
+          "FromMe",
+          style: AppTextStyles.appBarTitleStyle2(),
+        ),
+        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                AppColor.appBarShadowColor2,
+                AppColor.appBarShadowColor1,
+              ],
+              stops: [
+                0.1,
+                0.8,
+              ],
+            ),
+          ),
+        ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.keyboard_backspace,
+            size: 40.0,
+            color: AppColor.appBarBackButtonColor,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
+    );
+  }
+
 //App's general toast
   static appToastDisplay(BuildContext context, {String info}) {
     return Toast.show(info, context,

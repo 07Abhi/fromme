@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fromme/utilities/app_colors.dart';
+import 'package:fromme/utilities/app_constant_widgets.dart';
+import 'package:fromme/utilities/app_textstyles.dart';
 
 class FAQPage extends StatelessWidget {
   static const String id = "/faqPage";
@@ -10,54 +13,7 @@ class FAQPage extends StatelessWidget {
         SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.white));
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70.0),
-        child: AppBar(
-          elevation: 0.0,
-          shadowColor: Colors.white,
-          title: Text(
-            "FromMe",
-            style: TextStyle(
-              fontSize: 35.0,
-              fontWeight: FontWeight.w600,
-              color: Colors.cyan.shade400,
-              fontFamily: "LovedByTheKing",
-              shadows: [
-                Shadow(
-                  offset: Offset(0, 3.0),
-                  blurRadius: 2.0,
-                  color: Colors.grey.shade400,
-                )
-              ],
-            ),
-          ),
-          centerTitle: true,
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xff41b1c0),
-                  Colors.white,
-                ],
-                stops: [
-                  0.1,
-                  0.8,
-                ],
-              ),
-            ),
-          ),
-          leading: IconButton(
-            icon: Icon(
-              Icons.keyboard_backspace,
-              size: 40.0,
-              color: Color(0xff2DC4D9),
-            ),
-            onPressed: () => Navigator.pop(context),
-          ),
-        ),
-      ),
+      appBar: AppConstantsWidgets.fixedAppBarWithGradient(context),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
@@ -99,8 +55,8 @@ class FAQPage extends StatelessWidget {
 }
 
 class ExpandTiles extends StatefulWidget {
-  String question;
-  String solution;
+  final String question;
+  final String solution;
   ExpandTiles({this.question, this.solution});
   @override
   _ExpandTilesState createState() => _ExpandTilesState();
@@ -123,7 +79,7 @@ class _ExpandTilesState extends State<ExpandTiles> {
         Container(
           height: 70.0,
           width: MediaQuery.of(context).size.width,
-          color: Color(0xfff1f1f1),
+          color: AppColor.faqTilesColor,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Row(
@@ -132,10 +88,7 @@ class _ExpandTilesState extends State<ExpandTiles> {
                 Expanded(
                   child: Text(
                     widget.question,
-                    style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black),
+                    style: AppTextStyles.faqQuestionTextStyle(),
                   ),
                 ),
                 _isExpanded
@@ -162,16 +115,12 @@ class _ExpandTilesState extends State<ExpandTiles> {
           child: Container(
             height: 120.0,
             width: MediaQuery.of(context).size.width,
-            color: Color(0xfff1f1f1),
+            color: AppColor.faqTilesColor,
             child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Text(
                   widget.solution,
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
+                  style: AppTextStyles.faqAnswerTextStyle(),
                 )),
           ),
         )
@@ -179,4 +128,3 @@ class _ExpandTilesState extends State<ExpandTiles> {
     );
   }
 }
-//'We don not keep the copy of your password. However, you can reset your password from the login screen of the app. We do not keep the copy of your password. However, you can reset your password from the login screen.'

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColor {
+  static const primaryColor = Color(0xff2DC4D9);
   static const scaffoldColor = Color(0xffFFFFFF);
   static const appBarBackButtonColor = Color(0xDD000000);
   static const showpasswordColor = Color(0xff9e9e9e);
@@ -39,4 +40,27 @@ class AppColor {
   static const offlineIndicator = Color(0xff2196f3);
   static const loginChoiceTextColor = Color(0xff2DC4D9);
   static const forgetpassInformationColor = Color(0xff757575);
+  static const appBarShadowColor = Color(0xff9e9e9e);
+  static const appBarShadowColor1 = Color(0xffffffff);
+  static const appBarShadowColor2 = Color(0xff41b1c0);
+  static const homeBookmarkTitleColor = Color(0xff007888);
+  static const homeBookMarkcolor1 = Color(0xffb2ebf2);
+  static const homeBookMarkcolor2 = Color(0xff2DC4D9);
+  static const circularProgressIndiColor = Color(0x8affffff);
+  static const timelinePageContainerColor = Color(0xffffffff);
+  static const timelinePageNameColor = Color(0xff000000);
+  static const timelinePageTimeColor = Color(0xff555555);
+  static const timelinePageEmotionColor = Color(0xff27AE60);
+  static const settingPageHeadingColor = Color(0xff000000);
+  static const faqTilesColor = Color(0xfff1f1f1);
+  static const faqQuestionColor = Color(0xff000000);
+  static const notificationActiveTrackColor = Color(0xff2DC4D9);
+  static const notificationInactiveThumbColor = Color(0xffbdbdbd);
+  static const notificationInactiveTrackColor = Color(0xffe0e0e0);
+  static const notificationDividerColor = Color(0xffbdbdbd);
+  static const uploadImageConatinerColor = Color(0xff2DC4D9);
+  static const uploadImageTextColor = Color(0xffffffff);
+  static const editFieldIconColor = Color(0XFFAAAAAA);
+  static const editProfileRadioLableColor = Color(0xffAAAAAA);
+  static const settingPageDividerColor = Color(0xffe0e0e0);
 }

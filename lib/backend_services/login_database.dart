@@ -24,7 +24,7 @@ class BackendDBservices {
   }
 
   static saveGoogleSignUpData(GoogleSignIn googleSignIn) async {
-   await  FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection('userdata')
         .doc(googleSignIn.currentUser.id)
         .set({
@@ -40,8 +40,8 @@ class BackendDBservices {
     });
   }
 
-  static saveFacebookSignUpData(Map userProfile) async{
-    await  FirebaseFirestore.instance
+  static saveFacebookSignUpData(Map userProfile) async {
+    await FirebaseFirestore.instance
         .collection('userdata')
         .doc(userProfile['id'])
         .set({
@@ -55,6 +55,31 @@ class BackendDBservices {
       'name': userProfile['name'],
       'photoUrl': null,
       'uid': userProfile['id']
+    });
+  }
+
+  static updateUserMobileNumber(String mobileNumber, {String uid}) async {
+    await FirebaseFirestore.instance.collection("userdata").doc(uid).update({
+      "mobile": mobileNumber,
+    });
+  }
+
+  static saveEditProfileChanges(
+      {String uid,
+      String name,
+      String gender,
+      String address,
+      String dob,
+      bool availableStatus,
+      String photoUrl}) async {
+    await FirebaseFirestore.instance.collection('userdata').doc(uid).update({
+      'name': name,
+      'gender': gender,
+      'address': address,
+      'dob': dob,
+      'availableStatus': true,
+      'photoUrl': photoUrl,
+      'uid': uid
     });
   }
 }

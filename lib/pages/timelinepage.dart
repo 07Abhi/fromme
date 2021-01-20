@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fromme/utilities/app_colors.dart';
+import 'package:fromme/utilities/app_constant_strings.dart';
+import 'package:fromme/utilities/app_textstyles.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
 import 'package:fromme/models/statusmodel.dart';
 import 'package:fromme/widgets/userstatusbar.dart';
@@ -96,8 +99,6 @@ class _TimeLinePageState extends State<TimeLinePage> {
 
   @override
   Widget build(BuildContext context) {
-    //_moodposts = [];
-
     return Scaffold(
       body: FutureBuilder<QuerySnapshot>(
         future: getUserStoryTiles(),
@@ -105,7 +106,7 @@ class _TimeLinePageState extends State<TimeLinePage> {
           if (!snapshot.hasData) {
             return Center(
               child: CircularProgressIndicator(
-                backgroundColor: Colors.white54,
+                backgroundColor: AppColor.circularProgressIndiColor,
                 strokeWidth: 5.0,
               ),
             );
@@ -117,8 +118,8 @@ class _TimeLinePageState extends State<TimeLinePage> {
                 _statusInfo.add(
                   StatusModel(
                     isOnline: data['isOnline'],
-                    photoUrl: data['photoUrl'] ??
-                        "https://image.flaticon.com/icons/png/512/64/64572.png",
+                    photoUrl:
+                        data['photoUrl'] ?? AppConstantString.timelinePhotoUrl,
                   ),
                 );
               }
@@ -153,7 +154,8 @@ class _TimeLinePageState extends State<TimeLinePage> {
                                     child: Container(
                                       height: 270.0,
                                       width: MediaQuery.of(context).size.width,
-                                      color: Colors.white,
+                                      color:
+                                          AppColor.timelinePageContainerColor,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                           vertical: 5.0,
@@ -190,41 +192,31 @@ class _TimeLinePageState extends State<TimeLinePage> {
                                                       Text(
                                                         _moodposts[index]
                                                             .data()['name'],
-                                                        style: TextStyle(
-                                                          fontSize: 20.0,
-                                                          fontWeight:
-                                                              FontWeight.w900,
-                                                          color: Colors.black,
-                                                        ),
+                                                        style: AppTextStyles
+                                                            .timelinePageNameStyle(),
                                                       ),
                                                       SizedBox(
                                                         height: 5.0,
                                                       ),
                                                       Text(
-                                                        timeAgo.format(DateTime
-                                                            .parse(_moodposts[
-                                                                        index]
+                                                        timeAgo.format(
+                                                          DateTime.parse(
+                                                            _moodposts[index]
                                                                     .data()[
-                                                                'timeStamp'])),
-                                                        style: TextStyle(
-                                                          fontSize: 14.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color:
-                                                              Color(0xff555555),
+                                                                'timeStamp'],
+                                                          ),
                                                         ),
-                                                      )
+                                                        style: AppTextStyles
+                                                            .timelinePageTimeStampStyle(),
+                                                      ),
                                                     ],
                                                   ),
                                                 ),
                                                 Text(
                                                   _moodposts[index]
                                                       .data()['emotion'],
-                                                  style: TextStyle(
-                                                    fontSize: 20.0,
-                                                    fontWeight: FontWeight.w900,
-                                                    color: Color(0xff27AE60),
-                                                  ),
+                                                  style: AppTextStyles
+                                                      .timelinePageEmotionStyle(),
                                                 ),
                                                 IconButton(
                                                   icon: Icon(
@@ -250,10 +242,8 @@ class _TimeLinePageState extends State<TimeLinePage> {
                                                 child: Text(
                                                   _moodposts[index]
                                                       .data()['postMessage'],
-                                                  style: TextStyle(
-                                                    fontSize: 18.0,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
+                                                  style: AppTextStyles
+                                                      .timelinePagePostMessageStyle(),
                                                 ),
                                               ),
                                             ),
@@ -267,81 +257,24 @@ class _TimeLinePageState extends State<TimeLinePage> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
                                               children: [
-                                                Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons
-                                                          .question_answer_outlined,
-                                                      size: 35.0,
-                                                      color: Theme.of(context)
-                                                          .primaryColor,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 5.0,
-                                                    ),
-                                                    Text(
-                                                      'Video Call',
-                                                      style: TextStyle(
-                                                        color:
-                                                            Color(0xff595959),
-                                                        fontSize: 15.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.drafts,
-                                                      size: 35.0,
-                                                      color: Theme.of(context)
-                                                          .primaryColor,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 5.0,
-                                                    ),
-                                                    Text(
-                                                      'Call invite',
-                                                      style: TextStyle(
-                                                        color:
-                                                            Color(0xff595959),
-                                                        fontSize: 15.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
+                                                userPostBottomBarOptions(
+                                                    context,
+                                                    icons: Icons
+                                                        .question_answer_outlined,
+                                                    label: "Video Call"),
+                                                userPostBottomBarOptions(
+                                                    context,
+                                                    icons: Icons.drafts,
+                                                    label: "Call Invite"),
                                                 GestureDetector(
                                                   onTap: () =>
                                                       Navigator.pushNamed(
                                                           context, ChatPage.id),
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(
-                                                        Icons
-                                                            .chat_bubble_outline_outlined,
-                                                        size: 35.0,
-                                                        color: Theme.of(context)
-                                                            .primaryColor,
-                                                      ),
-                                                      SizedBox(
-                                                        width: 5.0,
-                                                      ),
-                                                      Text(
-                                                        'Chat',
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color(0xff595959),
-                                                          fontSize: 15.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
+                                                  child: userPostBottomBarOptions(
+                                                      context,
+                                                      icons: Icons
+                                                          .chat_bubble_outline_outlined,
+                                                      label: "Chat"),
                                                 ),
                                               ],
                                             )
@@ -360,4 +293,24 @@ class _TimeLinePageState extends State<TimeLinePage> {
       ),
     );
   }
+}
+
+Widget userPostBottomBarOptions(BuildContext context,
+    {IconData icons, String label}) {
+  return Row(
+    children: [
+      Icon(
+        icons,
+        size: 35.0,
+        color: AppColor.userPostIconColor,
+      ),
+      SizedBox(
+        width: 5.0,
+      ),
+      Text(
+        label,
+        style: AppTextStyles.userPostBottomBarStyle(),
+      )
+    ],
+  );
 }

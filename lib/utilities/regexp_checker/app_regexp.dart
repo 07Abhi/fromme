@@ -20,4 +20,13 @@ class RegExpsTester {
         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
     return pattern.hasMatch(data);
   }
+
+  static bool dobChecker(String val) {
+    RegExp pattern = new RegExp(r'[0-9/-]{8,}');
+    return pattern.hasMatch(val);
+  }
+  static bool addressChecker(String data) {
+    RegExp pattern = new RegExp(r'[0-9a-zA-Z ,/-]{15,50}');
+    return pattern.hasMatch(data);
+  }
 }
