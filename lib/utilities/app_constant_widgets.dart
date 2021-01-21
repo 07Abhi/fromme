@@ -100,4 +100,33 @@ class AppConstantsWidgets {
       color: AppColor.settingPageDividerColor,
     );
   }
+
+  static appBarConatactsPage() {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(50.0),
+      child: AppBar(
+        elevation: 0.0,
+        shadowColor: AppColor.contactPageShadowandElevationColor,
+        backgroundColor: AppColor.contactPageShadowandElevationColor,
+        bottom: TabBar(
+          indicatorColor: AppColor.contactPageLabelColor,
+          indicatorSize: TabBarIndicatorSize.tab,
+          indicatorWeight: 3.0,
+          labelStyle: TextStyle(
+            fontSize: 17.0,
+            fontWeight: FontWeight.w600,
+          ),
+          //labelColor: Theme.of(context).primaryColor,
+          tabs: <Widget>[
+            Tab(
+              text: "Recents",
+            ),
+            Tab(
+              text: "Contacts",
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

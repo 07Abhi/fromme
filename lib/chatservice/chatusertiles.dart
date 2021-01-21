@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fromme/utilities/app_textstyles.dart';
 
 Widget chatUserTiles(BuildContext context, String imgUrl, String name) {
   return Container(
@@ -17,10 +18,7 @@ Widget chatUserTiles(BuildContext context, String imgUrl, String name) {
         Expanded(
           child: Text(
             name,
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.w600,
-            ),
+            style: AppTextStyles.chatUserTilesNameStyle(),
           ),
         ),
       ],

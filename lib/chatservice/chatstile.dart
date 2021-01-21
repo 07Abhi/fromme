@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:fromme/chatservice/chatdatabase/chatdatabaseaccess.dart';
-import 'package:fromme/chatservice/chatwindow.dart';
+import 'package:fromme/backend_services/chatdatabaseaccess.dart';
+import 'package:fromme/utilities/app_colors.dart';
+import 'package:fromme/utilities/app_textstyles.dart';
 
 class ChatTiles extends StatefulWidget {
-  String imgUrl;
-  String name;
-  String uid;
-  bool isOnline;
-  String currentUserName;
-  String currentUserEmail;
+  final String imgUrl;
+  final String name;
+  final String uid;
+  final bool isOnline;
+  final String currentUserName;
+  final String currentUserEmail;
   ChatTiles(
       {this.imgUrl,
       this.isOnline,
@@ -22,30 +23,6 @@ class ChatTiles extends StatefulWidget {
 }
 
 class _ChatTilesState extends State<ChatTiles> {
-  createChatRoomAndDatabase(String username) async {
-    String chatRoomId = DatabaseAccess().getChatRoomId(
-        username.replaceAll(" ", ""),
-        widget.currentUserName.replaceAll(" ", ""));
-    List<String> users = [username, widget.currentUserName];
-    Map<String, dynamic> chatDb = {
-      "users": users,
-      "chatRoomid": chatRoomId,
-    };
-    DatabaseAccess().createChatRoom(chatRoomId, chatDb);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ChatWindow(
-          picUrl: widget.imgUrl,
-          uid: widget.uid,
-          name: widget.name,
-          myusername: widget.currentUserName,
-          chatRoomId: chatRoomId,
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -68,24 +45,20 @@ class _ChatTilesState extends State<ChatTiles> {
               children: [
                 Text(
                   widget.name,
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: AppTextStyles.chatTileNameStyle(),
                 ),
                 Row(
                   children: [
                     Icon(
                       Icons.fiber_manual_record,
                       size: 20.0,
-                      color: widget.isOnline ? Colors.green : Colors.red,
+                      color: widget.isOnline
+                          ? AppColor.isOnlineColorIndicator
+                          : AppColor.isOfflineColorIndicator,
                     ),
                     Text(
                       widget.isOnline ? "Online" : "Not Active",
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style: AppTextStyles.chatUserActiveStatusStyle(),
                     ),
                   ],
                 )
@@ -96,17 +69,17 @@ class _ChatTilesState extends State<ChatTiles> {
             padding: EdgeInsets.symmetric(horizontal: 10.0),
             child: FlatButton(
               onPressed: () {
-                createChatRoomAndDatabase(widget.name);
+                DatabaseAccess.createChatRoomAndDatabase(context,
+                    username: widget.name,
+                    currentUserName: widget.currentUserName,
+                    uid: widget.uid,
+                    imgUrl: widget.imgUrl);
               },
               child: Text(
                 'Message',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
+                style: AppTextStyles.chatTileMsgBtnTextStyle(),
               ),
-              color: Theme.of(context).primaryColor,
+              color: AppColor.primaryColor,
             ),
           ),
         ],

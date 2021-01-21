@@ -76,4 +76,22 @@ class AppColor {
   static const profilePageEmailColor = Color(0xff272727);
   static const profilePagelabelIconColor = Color(0xff000000);
   static const profilePageAvailableBtnActiveTrack = Color(0xff00838f);
+  static const contactPageShadowandElevationColor = Color(0xffffffff);
+  static const contactPageLabelColor = Color(0xff3f51b5);
+  static const contactTilesColor = Color(0xffeeeeee);
+  static const contactPageNameColor = Color(0xff000000);
+  static const chatPageSearchIconColor = Color(0xffbdbdbd);
+  static const chatPageSearchHintColor = Color(0xffbdbdbdb);
+  static const chatPageTextFieldBorder = Color(0xffe0e0e0e);
+  static const isOnlineColorIndicator = Color(0xff27AE60);
+  static const isOfflineColorIndicator = Color(0xffeb5757);
+  static const chatImageBackgroundColor = Color(0xffeeeeee);
+  static const chatMessageConatinerBorderColor = Color(0xff42a5f5);
+  static const chatMessageContainerBorderSidesColor = Color(0xffbbdefb);
+  static const chatMessageColor = Color(0xffffffff);
+  static List<Color> chatMessageByOwn = [Color(0xff81d4fa), Color(0xff4fc3f7)];
+  static List<Color> chatMessageByOther = [
+    Color(0xfff48fb1),
+    Color(0xfff06292)
+  ];
 }

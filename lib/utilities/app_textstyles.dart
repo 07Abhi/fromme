@@ -493,4 +493,121 @@ class AppTextStyles {
       color: AppColor.profilePageEmailColor,
     );
   }
+
+  static TextStyle contactPageNameStyle() {
+    return TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.w600,
+      color: AppColor.contactPageNameColor,
+    );
+  }
+
+  static TextStyle contactPageDetailsStyle() {
+    return TextStyle(
+      fontSize: 14.0,
+      fontWeight: FontWeight.w600,
+      color: AppColor.contactPageNameColor,
+    );
+  }
+
+  static InputDecoration chatPageTextFieldDecoration({String hint}) {
+    return InputDecoration(
+      hintText: hint,
+      hintStyle: TextStyle(
+        fontSize: 20.0,
+        fontWeight: FontWeight.w600,
+        color: AppColor.chatPageSearchHintColor,
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10.0),
+        borderSide: BorderSide(
+          width: 1.5,
+          color: AppColor.chatPageTextFieldBorder,
+        ),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10.0),
+        borderSide: BorderSide(
+          width: 1.5,
+          color: AppColor.chatPageTextFieldBorder,
+        ),
+      ),
+    );
+  }
+
+  static TextStyle searchChatResultNotFoundStyle() {
+    return TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.w600,
+      color: AppColor.primaryColor,
+    );
+  }
+
+  static TextStyle chatTileMsgBtnTextStyle() {
+    return TextStyle(
+      fontSize: 16.0,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    );
+  }
+
+  static TextStyle chatTileNameStyle() {
+    return TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  static TextStyle chatUserActiveStatusStyle() {
+    return TextStyle(
+      fontSize: 16.0,
+      fontWeight: FontWeight.w400,
+    );
+  }
+
+  static TextStyle chatUserTilesNameStyle() {
+    return TextStyle(
+      fontSize: 16.0,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  static TextStyle chatWindowNameStyle() {
+    return TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.w800,
+    );
+  }
+
+  static InputDecoration chatMessageContainerTextFieldDecoration() {
+    return InputDecoration(
+      enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: AppColor.chatMessageContainerBorderSidesColor,
+        ),
+      ),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: Color(0xffbbdefb),
+        ),
+      ),
+      prefixIcon: Icon(
+        Icons.chat,
+        color: AppColor.chatMessageConatinerBorderColor,
+        size: 30.0,
+      ),
+      hintText: 'Type Message....',
+      hintStyle: TextStyle(
+        color: AppColor.chatMessageConatinerBorderColor,
+      ),
+    );
+  }
+
+  static TextStyle chatMessageTextStyle() {
+    return TextStyle(
+      color: AppColor.chatMessageColor,
+      fontSize: 16.0,
+      fontWeight: FontWeight.bold,
+    );
+  }
 }

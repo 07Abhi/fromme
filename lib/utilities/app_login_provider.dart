@@ -31,6 +31,7 @@ class LoginProvider {
     }
   }
 
+  // ignore: missing_return
   static Future<Map> signUpWithFacebook(BuildContext context,
       FacebookLogin facebookLogin, FirebaseAuth auth) async {
     try {

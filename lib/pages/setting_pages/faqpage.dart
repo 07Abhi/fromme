@@ -19,28 +19,28 @@ class FAQPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ExpandTiles(
+            ExpandedTiles(
               question: "Question 1",
               solution: "Particular Answer",
             ),
             SizedBox(
               height: 15.0,
             ),
-            ExpandTiles(
+            ExpandedTiles(
               question: "Question 2",
               solution: "Particular Answer",
             ),
             SizedBox(
               height: 15.0,
             ),
-            ExpandTiles(
+            ExpandedTiles(
               question: "Question 3",
               solution: "Particular Answer",
             ),
             SizedBox(
               height: 15.0,
             ),
-            ExpandTiles(
+            ExpandedTiles(
               question: "Question 4",
               solution: "Particular Answer",
             ),
@@ -54,15 +54,15 @@ class FAQPage extends StatelessWidget {
   }
 }
 
-class ExpandTiles extends StatefulWidget {
+class ExpandedTiles extends StatefulWidget {
   final String question;
   final String solution;
-  ExpandTiles({this.question, this.solution});
+  ExpandedTiles({this.question, this.solution});
   @override
   _ExpandTilesState createState() => _ExpandTilesState();
 }
 
-class _ExpandTilesState extends State<ExpandTiles> {
+class _ExpandTilesState extends State<ExpandedTiles> {
   bool _isExpanded = false;
 
   void _expandFunc() {

@@ -2,10 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fromme/chatservice/chatdatabase/chatdatabaseaccess.dart';
+import 'package:fromme/backend_services/chatdatabaseaccess.dart';
 import 'package:fromme/chatservice/chatstile.dart';
-import 'package:fromme/chatservice/searchresult.dart';
-import 'package:toast/toast.dart';
+import 'package:fromme/utilities/app_colors.dart';
+import 'package:fromme/utilities/app_constant_widgets.dart';
+import 'package:fromme/utilities/app_textstyles.dart';
 
 class Userdata {
   String uid;
@@ -27,7 +28,7 @@ class _ChatPageState extends State<ChatPage> {
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore _firebaseStore = FirebaseFirestore.instance;
   QuerySnapshot chatHeads;
-  QuerySnapshot searchResults;
+
   List<DocumentSnapshot> firstData = [];
   List<String> data = [];
   String currentUserName;
@@ -49,23 +50,6 @@ class _ChatPageState extends State<ChatPage> {
     });
   }
 
-  checkSearchResults(String username) async {
-    QuerySnapshot data = await DatabaseAccess().getUserByNameSearch(username);
-    setState(() {
-      searchResults = data;
-    });
-    SystemChannels.textInput.invokeMethod("TextInput.hide");
-    _searchController.clear();
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => SearchResultPage(
-          searchResults: searchResults,
-        ),
-      ),
-    );
-  }
-
   @override
   void initState() {
     getCurrentUserData();
@@ -82,7 +66,7 @@ class _ChatPageState extends State<ChatPage> {
             if (!snapshot.hasData) {
               return Center(
                 child: CircularProgressIndicator(
-                  backgroundColor: Colors.white54,
+                  backgroundColor: AppColor.circularProgressIndiColor,
                   strokeWidth: 5.0,
                 ),
               );
@@ -117,53 +101,26 @@ class _ChatPageState extends State<ChatPage> {
                           buildCounter: (context,
                                   {currentLength, isFocused, maxLength}) =>
                               null,
-                          decoration: InputDecoration(
-                            hintText: "Search.....",
-                            hintStyle: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey.shade400,
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                              borderSide: BorderSide(
-                                width: 1.5,
-                                color: Colors.grey.shade300,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                              borderSide: BorderSide(
-                                width: 1.5,
-                                color: Colors.grey.shade300,
-                              ),
-                            ),
-                          ),
+                          decoration: AppTextStyles.chatPageTextFieldDecoration(
+                              hint: "Search...."),
                         ),
                       ),
                       IconButton(
-                        icon: Icon(
-                          Icons.search,
-                          size: 35.0,
-                          color: Colors.grey.shade400,
-                        ),
+                        icon: Icon(Icons.search,
+                            size: 35.0,
+                            color: AppColor.chatPageSearchIconColor),
                         onPressed: () {
                           if (_searchController.text == currentUserName) {
-                            Toast.show("Not Available", context,
-                                duration: 2,
-                                gravity: Toast.BOTTOM,
-                                backgroundColor: Theme.of(context).primaryColor,
-                                textColor: Colors.white);
+                            AppConstantsWidgets.appToastDisplay(context,
+                                info: "User Not Found");
                           } else {
                             if (_searchController.text.isNotEmpty) {
-                              checkSearchResults(_searchController.text);
+                              DatabaseAccess.checkSearchResults(
+                                  context, _searchController.text);
+                              _searchController.clear();
                             } else {
-                              Toast.show("Empty Search!!!", context,
-                                  duration: 2,
-                                  gravity: Toast.BOTTOM,
-                                  backgroundColor:
-                                      Theme.of(context).primaryColor,
-                                  textColor: Colors.white);
+                              AppConstantsWidgets.appToastDisplay(context,
+                                  info: "Username Required");
                             }
                           }
                         },
