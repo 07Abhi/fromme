@@ -23,7 +23,8 @@ class BackendDBservices {
     });
   }
 
-  static saveGoogleSignUpData(GoogleSignIn googleSignIn) async {
+  static saveGoogleSignUpData(
+      GoogleSignIn googleSignIn, FirebaseAuth auth) async {
     await FirebaseFirestore.instance
         .collection('userdata')
         .doc(googleSignIn.currentUser.id)
@@ -32,15 +33,15 @@ class BackendDBservices {
       "availableStatus": true,
       "email": googleSignIn.currentUser.email,
       "gender": null,
-      "isOnline": false,
+      "isOnline": true,
       "mobile": null,
       "name": googleSignIn.currentUser.displayName,
       "photoUrl": googleSignIn.currentUser.photoUrl,
-      "uid": googleSignIn.currentUser.id
+      "uid": auth.currentUser.uid,
     });
   }
 
-  static saveFacebookSignUpData(Map userProfile) async {
+  static saveFacebookSignUpData(Map userProfile, FirebaseAuth auth) async {
     await FirebaseFirestore.instance
         .collection('userdata')
         .doc(userProfile['id'])
@@ -54,7 +55,7 @@ class BackendDBservices {
       'mobile': null,
       'name': userProfile['name'],
       'photoUrl': null,
-      'uid': userProfile['id']
+      'uid': auth.currentUser.uid,
     });
   }
 
@@ -81,5 +82,32 @@ class BackendDBservices {
       'photoUrl': photoUrl,
       'uid': uid
     });
+  }
+
+  static sharePostData(
+      {String postMessage,
+      String emotion,
+      String photoUrl,
+      String name,
+      String uid}) async {
+    await FirebaseFirestore.instance
+        .collection('usermoodpost')
+        .doc('allmoodpost')
+        .collection('moodposts')
+        .add({
+      "postMessage": postMessage,
+      "emotion": emotion,
+      "postImageUrl": photoUrl,
+      'name': name,
+      "uid": uid,
+      "timeStamp": DateTime.now().millisecondsSinceEpoch,
+    });
+  }
+
+  static changeAvailableStatus({String uid, bool status}) async {
+    await FirebaseFirestore.instance
+        .collection('userdata')
+        .doc(uid)
+        .update({'availableStatus': status});
   }
 }

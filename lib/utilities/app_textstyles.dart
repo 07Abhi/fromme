@@ -339,4 +339,158 @@ class AppTextStyles {
       fontWeight: FontWeight.w600,
     );
   }
+
+  static TextStyle homePageLogOutBtnStyle() {
+    return TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.w600,
+      color: AppColor.circleLogoubtnText,
+    );
+  }
+
+  static TextStyle homePageDrawerUsernameStyle() {
+    return TextStyle(
+      fontSize: 23.0,
+      fontWeight: FontWeight.w700,
+    );
+  }
+
+  static TextStyle drawertilesStyle() {
+    return TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.w600,
+      color: AppColor.drawerLableTextColor,
+    );
+  }
+
+  static TextStyle drawerBottomLabelTextStyle(double fsize) {
+    return TextStyle(
+      fontSize: fsize,
+      color: AppColor.drawerLableTextColor,
+    );
+  }
+
+  static TextStyle moodPostEmotionStyle() {
+    return TextStyle(
+      fontSize: 25.0,
+      fontWeight: FontWeight.w900,
+      color: AppColor.userPostEmotionColor,
+    );
+  }
+
+  static TextStyle moodpostTextFieldStyle() {
+    return TextStyle(
+      fontSize: 22.0,
+      fontWeight: FontWeight.w600,
+      letterSpacing: 0.8,
+    );
+  }
+
+  static moodPostDecoration(String hinttxt) {
+    return InputDecoration(
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.white,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.white,
+        ),
+      ),
+      hintText: hinttxt,
+      hintStyle: TextStyle(
+        fontSize: 25.0,
+        fontWeight: FontWeight.w600,
+        color: AppColor.moodPostinputColor,
+      ),
+    );
+  }
+
+  static InputDecoration moodPostSearchFeildDecoration({String hint}) {
+    return InputDecoration(
+      hintText: hint,
+      hintStyle: TextStyle(
+        fontSize: 22.0,
+        fontWeight: FontWeight.w600,
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10.0),
+        borderSide: BorderSide(
+            color: AppColor.moodPostSearchBarBorderColor, width: 2.0),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10.0),
+        borderSide: BorderSide(
+            color: AppColor.moodPostSearchBarBorderColor, width: 2.0),
+      ),
+    );
+  }
+
+  static TextStyle moodpostParticularUserTileStyle() {
+    return TextStyle(
+      fontSize: 20.0,
+      fontWeight: FontWeight.w500,
+    );
+  }
+
+  static TextStyle moodPostParticularUserButtonStyle() {
+    return TextStyle(
+      fontSize: 16.0,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  static TextStyle moodPostShareBtnStyle() {
+    return TextStyle(
+      fontSize: 14.0,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  static TextStyle moodpostShareWithStyle() {
+    return TextStyle(
+      fontSize: 15.0,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  static TextStyle privacyPolicyHeadingStyle() {
+    return TextStyle(
+      color: AppColor.privacyPolicyHeadingColor,
+      fontSize: 25.0,
+      fontWeight: FontWeight.w800,
+    );
+  }
+
+  static TextStyle privacyPolicyInfoStyle() {
+    return TextStyle(
+      fontSize: 16.0,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  static TextStyle profilePageNameStyle() {
+    return TextStyle(
+      fontSize: 24.0,
+      fontWeight: FontWeight.w800,
+      color: AppColor.profilePageNameColor,
+    );
+  }
+
+  static TextStyle profilePageHeadingStyle() {
+    return TextStyle(
+      fontSize: 26.0,
+      fontWeight: FontWeight.w800,
+      color: AppColor.primaryColor,
+    );
+  }
+
+  static TextStyle profilePageLabelsStyle() {
+    return TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.w500,
+      color: AppColor.profilePageEmailColor,
+    );
+  }
 }

@@ -163,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                               SystemChannels.textInput
                                   .invokeMethod('TextInput.hide');
                               try {
-                                await LoginProvider.loginWithCredentials(
+                                await _auth.signInWithEmailAndPassword(
                                     email: _emailController.text,
                                     password: _passwodController.text);
                                 setState(() {
@@ -244,7 +244,8 @@ class _LoginPageState extends State<LoginPage> {
                         AppConstantsWidgets.setLoginPrefference(_isAuth);
                         AppConstantsWidgets.appToastDisplay(context,
                             info: "Welcome");
-                        BackendDBservices.saveGoogleSignUpData(_googleSignIn);
+                        BackendDBservices.saveGoogleSignUpData(
+                            _googleSignIn, _auth);
                       },
                     ),
                     SignInButton(
@@ -265,7 +266,8 @@ class _LoginPageState extends State<LoginPage> {
                         AppConstantsWidgets.setLoginPrefference(_isAuth);
                         AppConstantsWidgets.appToastDisplay(context,
                             info: "Welcome");
-                        BackendDBservices.saveFacebookSignUpData(userProfile);
+                        BackendDBservices.saveFacebookSignUpData(
+                            userProfile, _auth);
                       },
                     )
                   ],

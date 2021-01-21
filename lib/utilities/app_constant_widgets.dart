@@ -93,4 +93,11 @@ class AppConstantsWidgets {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setBool('isLogged', isLogin);
   }
+
+  static basicDivider() {
+    return Divider(
+      thickness: 2.0,
+      color: AppColor.settingPageDividerColor,
+    );
+  }
 }

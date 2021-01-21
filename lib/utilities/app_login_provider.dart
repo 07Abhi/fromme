@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fromme/pages/loginpages/loginpage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as json;
 import 'package:flutter/material.dart';
@@ -7,9 +9,9 @@ import 'package:fromme/utilities/app_constant_widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginProvider {
-  static loginWithCredentials({String email, String password}) {
-    FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: password);
+  static loginWithCredentials(FirebaseAuth auth,
+      {String email, String password}) {
+    auth.signInWithEmailAndPassword(email: email, password: password);
   }
 
   static Future<void> signUpWithGoogle(BuildContext context,
@@ -52,6 +54,47 @@ class LoginProvider {
     } catch (e) {
       AppConstantsWidgets.appToastDisplay(context, info: e.message);
       return null;
+    }
+  }
+
+  static makeUserOnline(String uid) async {
+    FirebaseFirestore.instance.collection('userdata').doc(uid).update({
+      "isOnline": true,
+    });
+  }
+
+  static makeUserOffline(String uid) async {
+    FirebaseFirestore.instance.collection('userdata').doc(uid).update({
+      "isOnline": false,
+    });
+  }
+
+  static Future<void> signOut(BuildContext context, FacebookLogin faceBookData,
+      GoogleSignIn googleData, FirebaseAuth firebaseAuth) async {
+    if (faceBookData != null) {
+      await faceBookData.logOut();
+      firebaseAuth.signOut();
+      LoginProvider.makeUserOffline(FirebaseAuth.instance.currentUser.uid);
+      Navigator.pushReplacementNamed(context, LoginPage.id);
+      AppConstantsWidgets.appToastDisplay(context,
+          info: "Logout Succesfully!!");
+    } else if (googleData != null) {
+      await googleData.signOut();
+      firebaseAuth.signOut();
+      LoginProvider.makeUserOnline(FirebaseAuth.instance.currentUser.uid);
+      Navigator.pushReplacementNamed(context, LoginPage.id);
+      AppConstantsWidgets.appToastDisplay(context,
+          info: "Logout Succesfully!!");
+    } else {
+      if (firebaseAuth != null) {
+        firebaseAuth.signOut();
+      } else {
+        FirebaseAuth.instance.signOut();
+      }
+      LoginProvider.makeUserOffline(FirebaseAuth.instance.currentUser.uid);
+      Navigator.pushReplacementNamed(context, LoginPage.id);
+      AppConstantsWidgets.appToastDisplay(context,
+          info: "Logout Succesfully!!");
     }
   }
 }

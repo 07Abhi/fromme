@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColor {
+  static const statusBarColor = Color(0xffffffff);
   static const primaryColor = Color(0xff2DC4D9);
   static const scaffoldColor = Color(0xffFFFFFF);
   static const appBarBackButtonColor = Color(0xDD000000);
@@ -35,7 +36,7 @@ class AppColor {
   static const userPostIconColor = Color(0xffAAAAAA);
   static const userPostBottomTextColor = Color(0xff595959);
   static const userPostBottomIconColor = Color(0xff2DC4D9);
-  static const userStatusBarColor = Color(0xff000000);
+  static const userStatusBarColor = Color(0xffffffff);
   static const onlineIndicator = Color(0xff4caf50);
   static const offlineIndicator = Color(0xff2196f3);
   static const loginChoiceTextColor = Color(0xff2DC4D9);
@@ -63,4 +64,16 @@ class AppColor {
   static const editFieldIconColor = Color(0XFFAAAAAA);
   static const editProfileRadioLableColor = Color(0xffAAAAAA);
   static const settingPageDividerColor = Color(0xffe0e0e0);
+  static const circleLogoubtnText = Color(0x8A000000);
+  static const drawerIconColor = Color(0xff2AC2D7);
+  static const drawerLableTextColor = Color(0xff272727);
+  static const homepageBottomNavUnslectedColor = Color(0xff999999);
+  static const moodPostinputColor = Color(0xffc0c0c0);
+  static const moodPostSearchBarBorderColor = Color(0xffe0e0e0e);
+  static const moodpostSharebtnColor = Color(0xffc0c0c0);
+  static const privacyPolicyHeadingColor = Color(0xff000000);
+  static const profilePageNameColor = Color(0xff000000);
+  static const profilePageEmailColor = Color(0xff272727);
+  static const profilePagelabelIconColor = Color(0xff000000);
+  static const profilePageAvailableBtnActiveTrack = Color(0xff00838f);
 }

@@ -57,6 +57,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               final uploadTask = reference.putFile(image);
               uploadTask.whenComplete(() async {
                 imageUrl = await reference.getDownloadURL();
+                print(imageUrl);
               });
               setState(() {
                 isImage = true;

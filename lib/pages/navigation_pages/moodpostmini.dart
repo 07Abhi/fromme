@@ -4,11 +4,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fromme/backend_services/login_database.dart';
 import 'package:fromme/moodpostmanager/moodmanager.dart';
 import 'package:fromme/pages/homebookmark.dart';
+import 'package:fromme/utilities/app_colors.dart';
+import 'package:fromme/utilities/app_constant_strings.dart';
+import 'package:fromme/utilities/app_constant_widgets.dart';
+import 'package:fromme/utilities/app_textstyles.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:toast/toast.dart';
+
 
 class MoodPostMini extends StatefulWidget {
   static const String id = "/moodpostmini";
@@ -54,25 +59,18 @@ class _MoodPostMiniState extends State<MoodPostMini> {
               final uploadTask = reference.putFile(image);
               uploadTask.whenComplete(() async {
                 imageUrl = await reference.getDownloadURL();
-                print(imageUrl);
               });
               setState(() {
                 isImage = true;
                 pickFile = image;
               });
-              Toast.show(
-                "Image Uploaded",
-                context,
-                duration: 3,
-                gravity: Toast.BOTTOM,
-                backgroundColor: Theme.of(context).primaryColor,
-                textColor: Colors.white,
-              );
+              AppConstantsWidgets.appToastDisplay(context,
+                  info: "Image Uploaded!!");
             },
-            color: Theme.of(context).primaryColor,
+            color: AppColor.primaryColor,
             child: Text(
               "Choose from gallery",
-              style: TextStyle(fontSize: 18.0, color: Colors.white),
+              style: AppTextStyles.uploadImageTextStyle(),
             ),
           ),
           RaisedButton(
@@ -93,19 +91,13 @@ class _MoodPostMiniState extends State<MoodPostMini> {
                 isImage = true;
                 pickFile = image;
               });
-              Toast.show(
-                "Image Uploaded",
-                context,
-                duration: 3,
-                gravity: Toast.BOTTOM,
-                backgroundColor: Theme.of(context).primaryColor,
-                textColor: Colors.white,
-              );
+              AppConstantsWidgets.appToastDisplay(context,
+                  info: "Image Uploaded!!");
             },
-            color: Theme.of(context).primaryColor,
+            color: AppColor.primaryColor,
             child: Text(
               "Camera",
-              style: TextStyle(fontSize: 18.0, color: Colors.white),
+              style: AppTextStyles.uploadImageTextStyle(),
             ),
           ),
         ],
@@ -137,8 +129,9 @@ class _MoodPostMiniState extends State<MoodPostMini> {
                         children: [
                           CircleAvatar(
                             radius: 30.0,
-                            backgroundImage:
-                                NetworkImage(profileData['photoUrl']),
+                            backgroundImage: NetworkImage(
+                                    profileData['photoUrl']) ??
+                                NetworkImage(AppConstantString.drawerImageUrl),
                           ),
                           SizedBox(
                             width: 10.0,
@@ -149,21 +142,14 @@ class _MoodPostMiniState extends State<MoodPostMini> {
                             },
                             child: Text(
                               "Emotion",
-                              style: TextStyle(
-                                fontSize: 25.0,
-                                fontWeight: FontWeight.w900,
-                                color: Color(0xff27AE60),
-                              ),
+                              style: AppTextStyles.moodPostEmotionStyle(),
                             ),
                           )
                         ],
                       ),
                     ),
                   ),
-                  Divider(
-                    thickness: 2.0,
-                    color: Colors.grey.shade200,
-                  ),
+                  AppConstantsWidgets.basicDivider(),
                   Container(
                     height: 250,
                     width: MediaQuery.of(context).size.width,
@@ -174,39 +160,16 @@ class _MoodPostMiniState extends State<MoodPostMini> {
                         controller: _postMessageController,
                         maxLength: 200,
                         maxLines: 7,
-                        style: TextStyle(
-                          fontSize: 22.0,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 0.8,
-                        ),
+                        style: AppTextStyles.moodpostTextFieldStyle(),
                         buildCounter: (context,
                                 {currentLength, isFocused, maxLength}) =>
                             null,
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.white,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.white,
-                            ),
-                          ),
-                          hintText: "Write Your Post",
-                          hintStyle: TextStyle(
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xffc0c0c0),
-                          ),
-                        ),
+                        decoration: AppTextStyles.moodPostDecoration(
+                            "Write your Post...."),
                       ),
                     ),
                   ),
-                  Divider(
-                    thickness: 2.0,
-                    color: Colors.grey.shade200,
-                  ),
+                  AppConstantsWidgets.basicDivider(),
                   Visibility(
                     visible: isImage,
                     child: Align(
@@ -232,7 +195,7 @@ class _MoodPostMiniState extends State<MoodPostMini> {
                         leading: Icon(
                           Icons.camera_alt_outlined,
                           size: 40.0,
-                          color: Theme.of(context).primaryColor,
+                          color: AppColor.primaryColor,
                         ),
                         title: Text(
                           "Add Photo/Video",
@@ -257,26 +220,9 @@ class _MoodPostMiniState extends State<MoodPostMini> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10.0, vertical: 10.0),
                                       child: TextField(
-                                        decoration: InputDecoration(
-                                            hintText: "Search",
-                                            hintStyle: TextStyle(
-                                              fontSize: 22.0,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey.shade300,
-                                                  width: 2.0),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey.shade300,
-                                                  width: 2.0),
-                                            )),
+                                        decoration: AppTextStyles
+                                            .moodPostSearchFeildDecoration(
+                                                hint: "Search"),
                                       ),
                                     ),
                                     Expanded(
@@ -290,16 +236,14 @@ class _MoodPostMiniState extends State<MoodPostMini> {
                                             ),
                                             title: Text(
                                               "User Name",
-                                              style: TextStyle(
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.w500,
-                                              ),
+                                              style: AppTextStyles
+                                                  .moodpostParticularUserTileStyle(),
                                             ),
                                             trailing: Checkbox(
                                               onChanged: (data) {},
                                               value: false,
-                                              activeColor: Theme.of(context)
-                                                  .primaryColor,
+                                              activeColor:
+                                                  AppColor.primaryColor,
                                             ),
                                           ),
                                         ],
@@ -319,15 +263,12 @@ class _MoodPostMiniState extends State<MoodPostMini> {
                                               child: Text(
                                                 "Users Name that are selected",
                                                 overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontSize: 16.0,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
+                                                style: AppTextStyles
+                                                    .moodPostParticularUserButtonStyle(),
                                               ),
                                             ),
                                             decoration: BoxDecoration(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
+                                                color: AppColor.primaryColor,
                                                 borderRadius:
                                                     BorderRadius.circular(5.0)),
                                           ),
@@ -340,8 +281,7 @@ class _MoodPostMiniState extends State<MoodPostMini> {
                                             icon: Icon(
                                               Icons.arrow_forward,
                                               size: 40.0,
-                                              color: Theme.of(context)
-                                                  .primaryColor,
+                                              color: AppColor.primaryColor,
                                             ),
                                             onPressed: () {},
                                           ),
@@ -356,16 +296,13 @@ class _MoodPostMiniState extends State<MoodPostMini> {
                               height: 35.0,
                               width: 200.0,
                               decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
+                                color: AppColor.primaryColor,
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
                               child: Center(
                                 child: Text(
                                   'Choose who to share with',
-                                  style: TextStyle(
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                  style: AppTextStyles.moodpostShareWithStyle(),
                                 ),
                               ),
                             ),
@@ -377,51 +314,29 @@ class _MoodPostMiniState extends State<MoodPostMini> {
                             onPressed: () {
                               if (_postMessageController.text.isNotEmpty) {
                                 try {
-                                  _firestore
-                                      .collection('usermoodpost')
-                                      .doc('allmoodpost')
-                                      .collection('moodposts')
-                                      .add({
-                                    "postMessage": _postMessageController.text,
-                                    "emotion": moodTask.getMood(),
-                                    "postImageUrl": profileData['photoUrl'],
-                                    'name': profileData['name'],
-                                    "uid": _firebaseAuth.currentUser.uid,
-                                    "timeStamp": DateTime.now().toString(),
-                                  });
-                                  _postMessageController.clear();
-                                  Toast.show(
-                                    "Post Successfully Uploaded",
-                                    context,
-                                    duration: 3,
-                                    gravity: Toast.BOTTOM,
-                                    backgroundColor:
-                                        Theme.of(context).primaryColor,
-                                    textColor: Colors.white,
+                                  BackendDBservices.sharePostData(
+                                    postMessage: _postMessageController.text,
+                                    emotion: moodTask.getMood(),
+                                    name: profileData['name'],
+                                    uid: _firebaseAuth.currentUser.uid,
                                   );
+                                  _postMessageController.clear();
+                                  AppConstantsWidgets.appToastDisplay(context,
+                                      info: "Post Uploaded!!");
                                 } catch (e) {
-                                  print("Something went wrong");
+                                  AppConstantsWidgets.appToastDisplay(context,
+                                      info: e.message);
                                 }
                               } else {
-                                Toast.show(
-                                  "Empty Post can't be uploaded",
-                                  context,
-                                  duration: 3,
-                                  gravity: Toast.BOTTOM,
-                                  backgroundColor:
-                                      Theme.of(context).primaryColor,
-                                  textColor: Colors.white,
-                                );
+                                AppConstantsWidgets.appToastDisplay(context,
+                                    info: "Empty Post can't be Uploaded");
                               }
                             },
                             child: Text(
                               "Share",
-                              style: TextStyle(
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: AppTextStyles.moodPostShareBtnStyle(),
                             ),
-                            color: Color(0xffc0c0c0),
+                            color: AppColor.moodpostSharebtnColor,
                           )
                         ],
                       )
@@ -432,7 +347,7 @@ class _MoodPostMiniState extends State<MoodPostMini> {
             } else {
               return Center(
                 child: CircularProgressIndicator(
-                  backgroundColor: Colors.white54,
+                  backgroundColor: AppColor.circularProgressIndiColor,
                   strokeWidth: 5.0,
                 ),
               );

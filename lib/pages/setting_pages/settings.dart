@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fromme/pages/setting_pages/editprofile.dart';
-import 'package:fromme/utilities/app_colors.dart';
 import 'package:fromme/utilities/app_constant_widgets.dart';
 import 'package:fromme/utilities/app_textstyles.dart';
 import 'aboutus.dart';
@@ -32,10 +31,7 @@ class SettingPage extends StatelessWidget {
             ),
             onTap: () => Navigator.pushNamed(context, EditProfilePage.id),
           ),
-          Divider(
-            thickness: 2.0,
-            color: AppColor.settingPageDividerColor,
-          ),
+          AppConstantsWidgets.basicDivider(),
           ListTile(
             title: Text(
               "Change/Add Mobile",
@@ -46,10 +42,7 @@ class SettingPage extends StatelessWidget {
             ),
             onTap: () => Navigator.pushNamed(context, ChangeNumber.id),
           ),
-          Divider(
-            thickness: 2.0,
-            color: AppColor.settingPageDividerColor,
-          ),
+          AppConstantsWidgets.basicDivider(),
           ListTile(
             title: Text(
               "Font Size",
@@ -59,10 +52,7 @@ class SettingPage extends StatelessWidget {
               Icons.keyboard_arrow_right,
             ),
           ),
-          Divider(
-            thickness: 2.0,
-            color: AppColor.settingPageDividerColor,
-          ),
+          AppConstantsWidgets.basicDivider(),
           ListTile(
             title: Text(
               "Notifications",
@@ -73,10 +63,7 @@ class SettingPage extends StatelessWidget {
             ),
             onTap: () => Navigator.pushNamed(context, NotificationPage.id),
           ),
-          Divider(
-            thickness: 2.0,
-            color: AppColor.settingPageDividerColor,
-          ),
+          AppConstantsWidgets.basicDivider(),
           ListTile(
             title: Text(
               "FAQ's",
@@ -87,10 +74,7 @@ class SettingPage extends StatelessWidget {
             ),
             onTap: () => Navigator.pushNamed(context, FAQPage.id),
           ),
-          Divider(
-            thickness: 2.0,
-            color: AppColor.settingPageDividerColor,
-          ),
+          AppConstantsWidgets.basicDivider(),
           ListTile(
             title: Text(
               "About Us",
@@ -101,10 +85,7 @@ class SettingPage extends StatelessWidget {
             ),
             onTap: () => Navigator.pushNamed(context, AboutUs.id),
           ),
-          Divider(
-            thickness: 2.0,
-            color: AppColor.settingPageDividerColor,
-          ),
+          AppConstantsWidgets.basicDivider(),
           ListTile(
             title: Text(
               "Contact Us",
@@ -115,10 +96,7 @@ class SettingPage extends StatelessWidget {
             ),
             onTap: () => Navigator.pushNamed(context, ContactUs.id),
           ),
-          Divider(
-            thickness: 2.0,
-            color: AppColor.settingPageDividerColor,
-          ),
+          AppConstantsWidgets.basicDivider(),
         ],
       ),
     );
