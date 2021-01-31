@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,6 +18,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
 
   FirebaseAuth _authSignUp = FirebaseAuth.instance;
+
   TextEditingController _nameController = new TextEditingController();
   TextEditingController _mobileController = new TextEditingController();
   TextEditingController _emailController = new TextEditingController();
@@ -24,6 +26,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _confpassController = new TextEditingController();
   bool _tncCheck = false;
   bool _hidePassword = true;
+  String token;
 
   //Obsecure password
   void _showPass() {
@@ -37,6 +40,19 @@ class _SignUpPageState extends State<SignUpPage> {
     setState(() {
       _tncCheck = data;
     });
+  }
+
+  // generateTokenForNotification() async {
+  //   String data = await _messaging.getToken();
+  //   setState(() {
+  //     token = data;
+  //   });
+  // }
+
+  @override
+  void initState() {
+    // generateTokenForNotification();
+    super.initState();
   }
 
   @override
@@ -242,6 +258,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 try {
                                   SystemChannels.textInput
                                       .invokeMethod('TextInput.hide');
+
                                   final registerUser =
                                       BackendDBservices.createNewUser(
                                           email: _emailController.text,
@@ -253,6 +270,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                         name: _nameController.text,
                                         mobile: _mobileController.text,
                                         email: _emailController.text,
+                                        token: token,
                                       );
                                       _nameController.clear();
                                       _mobileController.clear();

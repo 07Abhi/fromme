@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:fromme/utilities/app_constant_strings.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class BackendDBservices {
@@ -10,21 +12,27 @@ class BackendDBservices {
   }
 
   static saveSignUpData(
-      {String uid, String name, String mobile, String email}) async {
+      {String uid,
+      String name,
+      String mobile,
+      String email,
+      String token}) async {
     FirebaseFirestore.instance.collection('userdata').doc(uid).set({
       "name": name,
       "mobile": mobile,
       "email": email,
-      "photoUrl": null,
+      "photoUrl": AppConstantString.drawerImageUrl,
       "address": null,
       "availableStatus": null,
       "gender": null,
       "dob": null,
+      "token": token,
+      "uid": uid
     });
   }
 
-  static saveGoogleSignUpData(
-      GoogleSignIn googleSignIn, FirebaseAuth auth) async {
+  static saveGoogleSignUpData(GoogleSignIn googleSignIn, FirebaseAuth auth,
+      {String token}) async {
     await FirebaseFirestore.instance
         .collection('userdata')
         .doc(googleSignIn.currentUser.id)
@@ -37,11 +45,13 @@ class BackendDBservices {
       "mobile": null,
       "name": googleSignIn.currentUser.displayName,
       "photoUrl": googleSignIn.currentUser.photoUrl,
+      "token": token,
       "uid": auth.currentUser.uid,
     });
   }
 
-  static saveFacebookSignUpData(Map userProfile, FirebaseAuth auth) async {
+  static saveFacebookSignUpData(Map userProfile, FirebaseAuth auth,
+      {String token}) async {
     await FirebaseFirestore.instance
         .collection('userdata')
         .doc(userProfile['id'])
@@ -55,6 +65,7 @@ class BackendDBservices {
       'mobile': null,
       'name': userProfile['name'],
       'photoUrl': null,
+      "token": token,
       'uid': auth.currentUser.uid,
     });
   }
@@ -87,6 +98,7 @@ class BackendDBservices {
   static sharePostData(
       {String postMessage,
       String emotion,
+      String profilePic,
       String photoUrl,
       String name,
       String uid}) async {
@@ -95,12 +107,14 @@ class BackendDBservices {
         .doc('allmoodpost')
         .collection('moodposts')
         .add({
+      "userProfilePic": profilePic,
       "postMessage": postMessage,
       "emotion": emotion,
       "postImageUrl": photoUrl,
       'name': name,
       "uid": uid,
-      "timeStamp": DateTime.now().millisecondsSinceEpoch,
+      "timeforCatch": DateTime.now().millisecondsSinceEpoch,
+      "timeStamp": DateTime.now().toString(),
     });
   }
 
@@ -109,5 +123,12 @@ class BackendDBservices {
         .collection('userdata')
         .doc(uid)
         .update({'availableStatus': status});
+  }
+
+  static updateTokenAtLogin(String uid, String token) async {
+    FirebaseFirestore.instance
+        .collection('userdata')
+        .doc(uid)
+        .update({"token": token});
   }
 }

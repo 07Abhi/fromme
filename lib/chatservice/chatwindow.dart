@@ -19,8 +19,14 @@ class ChatWindow extends StatefulWidget {
   final String uid;
   final String myusername;
   final String chatRoomId;
+  final String tokenOfOtherUser;
   ChatWindow(
-      {this.chatRoomId, this.myusername, this.name, this.picUrl, this.uid});
+      {this.chatRoomId,
+      this.myusername,
+      this.name,
+      this.picUrl,
+      this.uid,
+      this.tokenOfOtherUser});
   @override
   _ChatWindowState createState() => _ChatWindowState();
 }
@@ -36,7 +42,7 @@ class _ChatWindowState extends State<ChatWindow> {
     setState(() {
       chatMessageStream = data;
     });
-
+    print(widget.tokenOfOtherUser);
     super.initState();
   }
 
@@ -113,7 +119,6 @@ class _ChatWindowState extends State<ChatWindow> {
                   onPressed: () {},
                 ),
                 PopupMenuButton<chatOptions>(
-                  // color: Theme.of(context).primaryColor,
                   icon: Icon(
                     Icons.more_vert,
                     color: AppColor.primaryColor,
@@ -183,10 +188,14 @@ class _ChatWindowState extends State<ChatWindow> {
                         color: Color(0xff42a5f5),
                       ),
                       onPressed: () {
-                        DatabaseAccess.sendMessages(context,
-                            msg: _messageController.text,
-                            myusername: widget.myusername,
-                            chatRoomId: widget.chatRoomId);
+                        print(widget.tokenOfOtherUser);
+                        DatabaseAccess.sendMessages(
+                          context,
+                          msg: _messageController.text,
+                          myusername: widget.myusername,
+                          chatRoomId: widget.chatRoomId,
+                          token: widget.tokenOfOtherUser,
+                        );
                         _messageController.clear();
                       },
                     )

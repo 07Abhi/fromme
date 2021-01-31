@@ -8,6 +8,7 @@ class ChatTiles extends StatefulWidget {
   final String name;
   final String uid;
   final bool isOnline;
+  final String userToken;
   final String currentUserName;
   final String currentUserEmail;
   ChatTiles(
@@ -16,6 +17,7 @@ class ChatTiles extends StatefulWidget {
       this.name,
       this.uid,
       this.currentUserName,
+      this.userToken,
       this.currentUserEmail});
 
   @override
@@ -73,6 +75,7 @@ class _ChatTilesState extends State<ChatTiles> {
                     username: widget.name,
                     currentUserName: widget.currentUserName,
                     uid: widget.uid,
+                    userToken: widget.userToken,
                     imgUrl: widget.imgUrl);
               },
               child: Text(

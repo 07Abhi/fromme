@@ -18,7 +18,6 @@ import 'package:fromme/utilities/app_constant_strings.dart';
 import 'package:fromme/utilities/app_constant_widgets.dart';
 import 'package:fromme/utilities/app_login_provider.dart';
 import 'package:fromme/utilities/app_textstyles.dart';
-import 'package:fromme/widgets/circles.dart';
 import 'package:fromme/widgets/circles_btn.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:fromme/main.dart';
@@ -54,7 +53,15 @@ class _HomePageState extends State<HomePage> {
     ContactPage(),
     MoodPostMini(),
     ChatPage(),
-    GiftPage()
+    GiftPage(),
+    // NotifcationPageTest()
+  ];
+  List pages1 = [
+    Center(child: Text("hello world")),
+    Center(child: Text("hello world")),
+    MoodPostMini(),
+    Center(child: Text("hello world")),
+    Center(child: Text("hello world")),
   ];
 
   void _changeIndex(int index) {
@@ -67,8 +74,6 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       isLoading = true;
     });
-    print(_firebaseAuth.currentUser.uid);
-    print(_firebaseAuth.currentUser.email);
 
     userData = await _firestore
         .collection('userdata')
@@ -91,7 +96,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     onRefreshProfile = _refreshFunction;
     getUserName();
-    //LoginProvider.makeUserOnline(_firebaseAuth.currentUser.uid);
+    LoginProvider.makeUserOnline(_firebaseAuth.currentUser.uid);
   }
 
   @override

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fromme/chatservice/chatwindow.dart';
+import 'package:fromme/chatservice/notification_service/notification_handler.dart';
 import 'package:fromme/chatservice/searchresult.dart';
 import 'package:fromme/utilities/app_colors.dart';
 import 'package:fromme/utilities/app_constant_widgets.dart';
@@ -84,6 +85,7 @@ class DatabaseAccess {
     String currentUserName,
     String imgUrl,
     String uid,
+    String userToken,
   }) async {
     String chatRoomId = DatabaseAccess().getChatRoomId(
         username.replaceAll(" ", ""), currentUserName.replaceAll(" ", ""));
@@ -99,6 +101,7 @@ class DatabaseAccess {
         builder: (context) => ChatWindow(
           picUrl: imgUrl,
           uid: uid,
+          tokenOfOtherUser: userToken,
           name: username,
           myusername: currentUserName,
           chatRoomId: chatRoomId,
@@ -133,7 +136,7 @@ class DatabaseAccess {
   }
 
   static sendMessages(BuildContext context,
-      {String msg, String myusername, String chatRoomId}) {
+      {String msg, String myusername, String chatRoomId, String token}) async {
     if (msg.isNotEmpty) {
       Map<String, dynamic> messageMap = {
         "message": msg,
@@ -141,7 +144,7 @@ class DatabaseAccess {
         "timeStamp": DateTime.now().millisecondsSinceEpoch
       };
       DatabaseAccess().sendChatMessages(chatRoomId, messageMap);
-      //_messageController.clear();
+      //await sendAndRetrieveMessage(token, message: msg, title: myusername);
     } else {
       AppConstantsWidgets.appToastDisplay(context, info: "Empty Message");
     }

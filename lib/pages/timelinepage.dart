@@ -8,6 +8,7 @@ import 'package:timeago/timeago.dart' as timeAgo;
 import 'package:fromme/models/statusmodel.dart';
 import 'package:fromme/widgets/userstatusbar.dart';
 
+import 'messagepages/emptypostscreen.dart';
 import 'navigation_pages/chatpage.dart';
 
 class TimeLinePage extends StatefulWidget {
@@ -40,7 +41,7 @@ class _TimeLinePageState extends State<TimeLinePage> {
         .collection('usermoodpost')
         .doc('allmoodpost')
         .collection('moodposts')
-        .orderBy('name')
+        .orderBy('timeforCatch', descending: true)
         .limit(_perPage);
 
     setState(() {
@@ -133,11 +134,7 @@ class _TimeLinePageState extends State<TimeLinePage> {
               ),
               Expanded(
                 child: isLoading
-                    ? Container(
-                        child: Center(
-                          child: Text("Loading....."),
-                        ),
-                      )
+                    ? EmptyPostScreen()
                     : Container(
                         child: _moodposts.length == 0
                             ? Center(
@@ -176,10 +173,12 @@ class _TimeLinePageState extends State<TimeLinePage> {
                                                           right: 10.0),
                                                   child: CircleAvatar(
                                                     radius: 35.0,
+                                                    backgroundColor:
+                                                        Colors.pink,
                                                     backgroundImage:
                                                         NetworkImage(
                                                       _moodposts[index].data()[
-                                                          'postImageUrl'],
+                                                          'userProfilePic'],
                                                     ),
                                                   ),
                                                 ),

@@ -13,7 +13,8 @@ class Userdata {
   String imgUrl;
   String name;
   bool isOnline;
-  Userdata({this.uid, this.imgUrl, this.name, this.isOnline});
+  String userToken;
+  Userdata({this.uid, this.imgUrl, this.name, this.isOnline, this.userToken});
 }
 
 class ChatPage extends StatefulWidget {
@@ -81,6 +82,7 @@ class _ChatPageState extends State<ChatPage> {
                       name: data['name'],
                       imgUrl: data['photoUrl'],
                       isOnline: data['isOnline'],
+                      userToken: data['token'],
                     ),
                   );
                 }
@@ -139,6 +141,7 @@ class _ChatPageState extends State<ChatPage> {
                         isOnline: users[index].isOnline,
                         currentUserEmail: currentUserEmail,
                         currentUserName: currentUserName,
+                        userToken: users[index].userToken,
                       ),
                     ),
                     itemCount: users.length,

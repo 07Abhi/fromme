@@ -13,7 +13,6 @@ import 'package:fromme/utilities/app_textstyles.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-
 class MoodPostMini extends StatefulWidget {
   static const String id = "/moodpostmini";
 
@@ -314,6 +313,7 @@ class _MoodPostMiniState extends State<MoodPostMini> {
                               if (_postMessageController.text.isNotEmpty) {
                                 try {
                                   BackendDBservices.sharePostData(
+                                    profilePic: profileData['photoUrl'],
                                     postMessage: _postMessageController.text,
                                     emotion: moodTask.getMood(),
                                     name: profileData['name'],

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fromme/models/contactsmodel.dart';
-import 'package:fromme/pages/setting_pages/faqpage.dart';
+
 import 'package:fromme/utilities/app_colors.dart';
 import 'package:fromme/utilities/app_constant_widgets.dart';
 import 'package:fromme/widgets/expandedtiles.dart';

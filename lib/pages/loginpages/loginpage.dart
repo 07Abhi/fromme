@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_signin_button/button_view.dart';
@@ -23,7 +26,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   Map userProfile;
+  // FirebaseMessaging _messaging = FirebaseMessaging();
   FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
   FacebookLogin _facebookLogin = FacebookLogin();
   GoogleSignIn _googleSignIn =
       GoogleSignIn(scopes: ['email'], hostedDomain: '', clientId: '');
@@ -31,6 +36,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _passwodController = new TextEditingController();
   bool _hidePassword = true;
   bool _isAuth = false;
+  String token;
   //For password show and hide
   void _showPass() {
     setState(() {
@@ -46,9 +52,17 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+  // generateTokenForNotification() async {
+  //   String data = await _messaging.getToken();
+  //   setState(() {
+  //     token = data;
+  //   });
+  // }
+
   @override
   void initState() {
     super.initState();
+    // generateTokenForNotification();
     getLoginData();
   }
 
@@ -166,6 +180,8 @@ class _LoginPageState extends State<LoginPage> {
                                 await _auth.signInWithEmailAndPassword(
                                     email: _emailController.text,
                                     password: _passwodController.text);
+                                BackendDBservices.updateTokenAtLogin(
+                                    _auth.currentUser.uid, token);
                                 setState(() {
                                   _isAuth = true;
                                 });

@@ -33,7 +33,7 @@ class AppColor {
   static const userPostNameColor = Color(0xff000000);
   static const userPostTimeColor = Color(0xff555555);
   static const userPostEmotionColor = Color(0xff27AE60);
-  static const userPostIconColor = Color(0xffAAAAAA);
+  static const userPostIconColor = Color(0xff2DC4D9);
   static const userPostBottomTextColor = Color(0xff595959);
   static const userPostBottomIconColor = Color(0xff2DC4D9);
   static const userStatusBarColor = Color(0xffffffff);
